@@ -8,11 +8,11 @@ clean:
 	@rm -f *.o *~ $(TARGETS) *.d
 
 CC=gcc
-CFLAGS=-Wall -pedantic -std=c99 -O3
+CFLAGS=-Wall -pedantic -std=c99 -fgnu89-inline -O3 
 sources=$(wildcard *.c)
 
 # compile
-%.o: %.c
+%.o: %.c %.h
 	gcc -c $(CFLAGS) $*.c -o $*.o
 
 %.d: %.c	
