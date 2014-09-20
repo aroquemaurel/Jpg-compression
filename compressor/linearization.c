@@ -18,17 +18,17 @@ char iterator_next(LinearizationIterator* it) {
 		--it->line;
 		++it->column;
 		it->lastDirection = TOP_RIGHT;
-	} else if(it->line == it->size-1 && it->column % 2 == 0) {
+	} else if(it->line == it->height-1 && it->column % 2 == 0) {
 		++it->column;
 		it->lastDirection = RIGHT;
-	} else if(it->line == it->size-1 && it->column %2 != 0) {
+	} else if(it->line == it->height-1 && it->column %2 != 0) {
 		--it->line;
 		++it->column;
 		it->lastDirection = TOP_RIGHT;
-	} else if(it->column == it->size-1 && it->line%2 !=0) {
+	} else if(it->column == it->width-1 && it->line%2 !=0) {
 		++it->line;
 		it->lastDirection = BOTTOM;
-	} else if(it->column == it->size-1 && it->line%2 == 0) {
+	} else if(it->column == it->width-1 && it->line%2 == 0) {
 		++it->line;
 		--it->column;
 		it->lastDirection = BOTTOM_LEFT;
@@ -44,11 +44,11 @@ char iterator_next(LinearizationIterator* it) {
 	} else {
 		printf("DEFAULT");
 	}
-	return it->data[it->line*it->size+it->column];
+	return it->data[it->line*it->width+it->column];
 }
 
 bool iterator_hasNext(LinearizationIterator it) {
-	return !(it.column == it.size-1 && it.line == it.size-1);
+	return !(it.column == it.width-1 && it.line == it.height-1);
 }
 
 bool iterator_hasPrevious(LinearizationIterator it) {
@@ -56,18 +56,19 @@ bool iterator_hasPrevious(LinearizationIterator it) {
 }
 
 char iterator_value(LinearizationIterator it) {
-	return it.data[it.line*it.size+it.column];
+	return it.data[it.line*it.width+it.column];
 }
 
-LinearizationIterator iterator_new(char* pdata, const int size) {
+LinearizationIterator iterator_new(char* pdata, const int width, const int height) {
 	LinearizationIterator iterator;
-	iterator.data = (char*)malloc(sizeof(char)*size);
+	iterator.data = (char*)malloc(sizeof(char)*width*height);
 	char* buff = iterator.data;
 
-	memcpy(buff, pdata, size*size*sizeof(char));
+	memcpy(buff, pdata, width*height*sizeof(char));
 	iterator.line = 0;
 	iterator.column = 0;
-	iterator.size = size; 
+	iterator.width= width; 
+	iterator.height= height; 
 	iterator.lastDirection = NONE;
 
 	return iterator;

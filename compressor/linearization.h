@@ -7,12 +7,13 @@ typedef struct LinearizationIterator_t {
 	char* data;
 	int line;
 	int column;
-	int size;
+	int width;
+	int height;
 	Direction lastDirection;
 	
 } LinearizationIterator;
 
-LinearizationIterator iterator_new(char* pdata, const int size);
+LinearizationIterator iterator_new(char* pdata, const int width, const int height);
 
 /* 
  * Return the next element  

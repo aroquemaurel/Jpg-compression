@@ -6,6 +6,7 @@
 #include <math.h>
 
 #include "image.h"
+#include "linearization.h"
 #include "dct-idct.h"
 
 typedef struct{
@@ -49,7 +50,7 @@ int main(int argc, char** argv) {
 		break;
 	case 2 : // test dct
 		readPgm(args.inFilename, &img);
-		
+		LinearizationIterator it = iterator_new(img.data, img.w, img.h);	
 		break;
 	case 3 : // test quantify
 		

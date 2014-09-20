@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 		data[i] = k++;
 	}
 	printMatrix(data, 8, 8);
-	LinearizationIterator it = iterator_new(data, 8);	
+	LinearizationIterator it = iterator_new(data, 8, 8);	
 	while(iterator_hasNext(it)) {
 		printf("%d ", iterator_next(&it));
 	}
