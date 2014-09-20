@@ -51,6 +51,9 @@ int main(int argc, char** argv) {
 	case 2 : // test dct
 		readPgm(args.inFilename, &img);
 		LinearizationIterator it = iterator_new(img.data, img.w, img.h);	
+		while(iterator_hasNext(it)) {
+
+		}
 		break;
 	case 3 : // test quantify
 		

@@ -21,6 +21,7 @@ LinearizationIterator iterator_new(char* pdata, const int width, const int heigh
 char iterator_next(LinearizationIterator* it);
 bool iterator_hasNext(LinearizationIterator it);
 bool iterator_hasPrevious(LinearizationIterator it);
+char iterator_value(LinearizationIterator it);
 
 #endif
 
