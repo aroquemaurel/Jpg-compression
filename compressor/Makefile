@@ -25,11 +25,11 @@ sources=$(wildcard *.c)
 echo:
 	echo $(sources)
 
-compressor: main.o dct-idct.o image.o
+compressor: main.o dct-idct.o image.o linearization.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 
 tests:
-	./test_script.sh
+	make && ./test_script.sh
 
 
 include $(sources:.c=.d)

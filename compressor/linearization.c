@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char iterator_next(LinearizationIterator* it) {
+float iterator_next(LinearizationIterator* it) {
 	assert(iterator_hasNext(*it));
 	if(it->line == 0 && it->column % 2 == 0) {
 		++it->column;
@@ -44,7 +44,8 @@ char iterator_next(LinearizationIterator* it) {
 	} else {
 		printf("DEFAULT");
 	}
-	return it->data[it->line*it->width+it->column];
+
+	return it->data[it->line][it->column];
 }
 
 bool iterator_hasNext(LinearizationIterator it) {
@@ -55,20 +56,28 @@ bool iterator_hasPrevious(LinearizationIterator it) {
 	return it.column != 0 && it.line != 0;
 }
 
-char iterator_value(LinearizationIterator it) {
-	return it.data[it.line*it.width+it.column];
+float iterator_value(LinearizationIterator it) {
+	return it.data[it.line][it.column];
 }
 
-LinearizationIterator iterator_new(char* pdata, const int width, const int height) {
+LinearizationIterator iterator_new(float** pdata, const int nbBlocs) {
 	LinearizationIterator iterator;
-	iterator.data = (char*)malloc(sizeof(char)*width*height);
-	char* buff = iterator.data;
+	iterator.data = (float**)malloc(sizeof(float*)*nbBlocs);
+	for(int i = 0 ; i <  nbBlocs ; ++i) {
+		iterator.data[i] = (float*) malloc(sizeof(float)*8);
+	}
+	float** buff = iterator.data;
 
-	memcpy(buff, pdata, width*height*sizeof(char));
+	for(int i = 0 ; i < nbBlocs; ++i) {
+		for(int j = 0 ; j < nbBlocs ; ++j) {
+			buff[i][j] = pdata[i][j];	
+		}
+	}
+
 	iterator.line = 0;
 	iterator.column = 0;
-	iterator.width= width; 
-	iterator.height= height; 
+	iterator.width = nbBlocs;
+	iterator.height = nbBlocs; 
 	iterator.lastDirection = NONE;
 
 	return iterator;
