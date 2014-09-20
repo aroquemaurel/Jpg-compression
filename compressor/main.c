@@ -41,29 +41,23 @@ int main(int argc, char** argv) {
   image output;
 	
   switch(args.compress) {
-	case 0 :
-		// decompression
+	case 0 : // decompression
 		
 		break;
-	case 1 :
-		// compression
+	case 1 : // compression
 		
 		break;
-	case 2 :
+	case 2 : // test dct
 		readPgm(args.inFilename, &img);
-		// test dct
 		
 		break;
-	case 3 :
-		// test quantify
+	case 3 : // test quantify
 		
 		break;
-	case 4 :
-		// test vectorize
+	case 4 : // test vectorize
 		
 		break;
-	case 5 :
-		// compute and print error
+	case 5 : // compute and print error
 		
 		break;
 	default :

@@ -4,7 +4,7 @@
 #include <stdbool.h>
 typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;
 typedef struct LinearizationIterator_t {
-	char** data;
+	char* data;
 	int line;
 	int column;
 	int size;
@@ -12,7 +12,7 @@ typedef struct LinearizationIterator_t {
 	
 } LinearizationIterator;
 
-LinearizationIterator iterator_new(char** pdata, const int size);
+LinearizationIterator iterator_new(char* pdata, const int size);
 
 /* 
  * Return the next element  

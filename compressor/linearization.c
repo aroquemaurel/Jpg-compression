@@ -44,7 +44,7 @@ char iterator_next(LinearizationIterator* it) {
 	} else {
 		printf("DEFAULT");
 	}
-	return it->data[it->line][it->column];
+	return it->data[it->line*it->size+it->column];
 }
 
 bool iterator_hasNext(LinearizationIterator it) {
@@ -56,20 +56,15 @@ bool iterator_hasPrevious(LinearizationIterator it) {
 }
 
 char iterator_value(LinearizationIterator it) {
-	return it.data[it.line][it.column];
+	return it.data[it.line*it.size+it.column];
 }
 
-LinearizationIterator iterator_new(char** pdata, const int size) {
+LinearizationIterator iterator_new(char* pdata, const int size) {
 	LinearizationIterator iterator;
-	iterator.data = (char**)malloc(sizeof(char*)*size);
-	char** buff = iterator.data;
-	for(int i = 0 ; i < size ; ++i) {
-		buff[i] = (char*)(malloc(sizeof(char)*size));
-	}
+	iterator.data = (char*)malloc(sizeof(char)*size);
+	char* buff = iterator.data;
 
-	for(int j = 0 ; j < size ; ++j) {
-		memcpy(buff[j], pdata[j], size*sizeof(char));
-	}
+	memcpy(buff, pdata, size*size*sizeof(char));
 	iterator.line = 0;
 	iterator.column = 0;
 	iterator.size = size; 
