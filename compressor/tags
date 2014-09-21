@@ -1,0 +1,118 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+-std	tests/Makefile	/^	gcc -fgnu89-inline --std=c99 ..\/util.c testLinearization.c ..\/linearization.c -o testLinearization$/;"	m
+BOTTOM	linearization.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+BOTTOM_LEFT	linearization.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+Block	block.h	/^} Block;$/;"	t	typeref:struct:__anon2
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-Wall -pedantic -std=c99 -fgnu89-inline -O3 $/;"	m
+COEFFS	dct-idct.c	157;"	d	file:
+DCT_IDCT_H	dct-idct.h	2;"	d
+Direction	linearization.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	t	typeref:enum:__anon4
+IMAGE_H	image.h	2;"	d
+LEFT	linearization.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+LinearizationIterator	linearization.h	/^} LinearizationIterator;$/;"	t	typeref:struct:LinearizationIterator_t
+LinearizationIterator_t	linearization.h	/^typedef struct LinearizationIterator_t {$/;"	s
+LinearizationIterator_t::column	linearization.h	/^	int column;$/;"	m	struct:LinearizationIterator_t	access:public
+LinearizationIterator_t::data	linearization.h	/^	float** data;$/;"	m	struct:LinearizationIterator_t	access:public
+LinearizationIterator_t::height	linearization.h	/^	int height;$/;"	m	struct:LinearizationIterator_t	access:public
+LinearizationIterator_t::lastDirection	linearization.h	/^	Direction lastDirection;$/;"	m	struct:LinearizationIterator_t	access:public
+LinearizationIterator_t::line	linearization.h	/^	int line;$/;"	m	struct:LinearizationIterator_t	access:public
+LinearizationIterator_t::width	linearization.h	/^	int width;$/;"	m	struct:LinearizationIterator_t	access:public
+M_PI	dct-idct.c	15;"	d	file:
+NONE	linearization.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+RIGHT	linearization.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+TARGETS	Makefile	/^TARGETS=compressor$/;"	m
+TOP	linearization.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+TOP_RIGHT	linearization.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+__BLOCK	block.h	2;"	d
+__LINEARISATION	linearization.h	2;"	d
+__UTIL	util.h	2;"	d
+__anon1::compress	main.c	/^	int compress;$/;"	m	struct:__anon1	file:	access:public
+__anon1::inFilename	main.c	/^	char inFilename[256];$/;"	m	struct:__anon1	file:	access:public
+__anon1::outFilename	main.c	/^	char outFilename[256];$/;"	m	struct:__anon1	file:	access:public
+__anon2::data	block.h	/^	float* data;$/;"	m	struct:__anon2	access:public
+__anon2::normalize	block.h	/^	bool normalize; $/;"	m	struct:__anon2	access:public
+__anon2::quantum	block.h	/^	float* quantum;$/;"	m	struct:__anon2	access:public
+__anon3::data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon3	access:public
+__anon3::h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
+__anon3::size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon3	access:public
+__anon3::w	image.h	/^  int w;$/;"	m	struct:__anon3	access:public
+applyQuantum	block.c	/^void applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
+block_applyQuantum	block.c	/^void block_applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
+block_new	block.c	/^Block block_new() {$/;"	f
+block_new	block.h	/^Block block_new();$/;"	p	signature:()
+block_normalize	block.h	/^void block_normalize(Block* b, float v);$/;"	p	signature:(Block* b, float v)
+block_setNormalize	block.c	/^void block_setNormalize(Block* b, float v) {$/;"	f	signature:(Block* b, float v)
+block_setNormalize	block.h	/^void block_setNormalize(Block* b, float v);$/;"	p	signature:(Block* b, float v)
+block_setQuantification	block.c	/^void block_setQuantification(Block* b, float* quantum) {$/;"	f	signature:(Block* b, float* quantum)
+block_setQuantification	block.h	/^void block_setQuantification(Block* b, float* quantum);$/;"	p	signature:(Block* b, float* quantum)
+column	linearization.h	/^	int column;$/;"	m	struct:LinearizationIterator_t	access:public
+compress	main.c	/^	int compress;$/;"	m	struct:__anon1	file:	access:public
+data	block.h	/^	float* data;$/;"	m	struct:__anon2	access:public
+data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon3	access:public
+data	linearization.h	/^	float** data;$/;"	m	struct:LinearizationIterator_t	access:public
+dct	dct-idct.c	/^void dct(image *tga, float data[8*8],$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
+dct	dct-idct.h	/^void dct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
+getQuantumMatrix	main.c	/^float* getQuantumMatrix() {$/;"	f
+getQuantumMatrix	main.c	/^float* getQuantumMatrix();$/;"	p	file:
+h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
+height	linearization.h	/^	int height;$/;"	m	struct:LinearizationIterator_t	access:public
+idct	dct-idct.c	/^void idct(image *tga, float data[8*8], const int xpos, const int ypos)$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
+idct	dct-idct.h	/^void idct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
+image	image.h	/^} image;$/;"	t	typeref:struct:__anon3
+inFilename	main.c	/^	char inFilename[256];$/;"	m	struct:__anon1	file:	access:public
+iterator_hasNext	linearization.c	/^bool iterator_hasNext(LinearizationIterator it) {$/;"	f	signature:(LinearizationIterator it)
+iterator_hasNext	linearization.h	/^bool iterator_hasNext(LinearizationIterator it);$/;"	p	signature:(LinearizationIterator it)
+iterator_hasPrevious	linearization.c	/^bool iterator_hasPrevious(LinearizationIterator it) {$/;"	f	signature:(LinearizationIterator it)
+iterator_hasPrevious	linearization.h	/^bool iterator_hasPrevious(LinearizationIterator it);$/;"	p	signature:(LinearizationIterator it)
+iterator_new	linearization.c	/^LinearizationIterator iterator_new(float** pdata, const int nbBlocs) {$/;"	f	signature:(float** pdata, const int nbBlocs)
+iterator_new	linearization.h	/^LinearizationIterator iterator_new(float** pdata, const int nbBlocs);$/;"	p	signature:(float** pdata, const int nbBlocs)
+iterator_next	linearization.c	/^float iterator_next(LinearizationIterator* it) {$/;"	f	signature:(LinearizationIterator* it)
+iterator_next	linearization.h	/^float iterator_next(LinearizationIterator* it);$/;"	p	signature:(LinearizationIterator* it)
+iterator_value	linearization.c	/^float iterator_value(LinearizationIterator it) {$/;"	f	signature:(LinearizationIterator it)
+iterator_value	linearization.h	/^float iterator_value(LinearizationIterator it);$/;"	p	signature:(LinearizationIterator it)
+lastDirection	linearization.h	/^	Direction lastDirection;$/;"	m	struct:LinearizationIterator_t	access:public
+line	linearization.h	/^	int line;$/;"	m	struct:LinearizationIterator_t	access:public
+main	main.c	/^int main(int argc, char** argv) {$/;"	f	signature:(int argc, char** argv)
+main	tests/testLinearization.c	/^int main(int argc, char *argv[])$/;"	f	signature:(int argc, char *argv[])
+normalize	block.h	/^	bool normalize; $/;"	m	struct:__anon2	access:public
+outFilename	main.c	/^	char outFilename[256];$/;"	m	struct:__anon1	file:	access:public
+parseArgs	main.c	/^void parseArgs(char *argv[], s_args* args) {$/;"	f	signature:(char *argv[], s_args* args)
+parseArgs	main.c	/^void parseArgs(char *argv[], s_args* args);$/;"	p	file:	signature:(char *argv[], s_args* args)
+pixel	dct-idct.c	/^pixel_t pixel(image * img, int x, int y){$/;"	f	signature:(image * img, int x, int y)
+pixelPtr	dct-idct.c	/^pixel_t * pixelPtr(image * img, int x, int y){$/;"	f	signature:(image * img, int x, int y)
+pixel_t	image.h	/^typedef char pixel_t;$/;"	t
+printMatrix	util.c	/^void printMatrix(float** matrix, const int width, const int height) {$/;"	f	signature:(float** matrix, const int width, const int height)
+printMatrix	util.h	/^void printMatrix(float** matrix, const int width, const int height);$/;"	p	signature:(float** matrix, const int width, const int height)
+quantum	block.h	/^	float* quantum;$/;"	m	struct:__anon2	access:public
+readCompressed	image.c	/^void readCompressed(const char *filename, image *img){$/;"	f	signature:(const char *filename, image *img)
+readCompressed	image.h	/^void readCompressed(const char *filename, image *img);$/;"	p	signature:(const char *filename, image *img)
+readPgm	image.c	/^void readPgm(const char *filename, image *img){$/;"	f	signature:(const char *filename, image *img)
+readPgm	image.h	/^void readPgm(const char *filename, image *img);$/;"	p	signature:(const char *filename, image *img)
+s_args	main.c	/^} s_args;$/;"	t	typeref:struct:__anon1	file:
+setBlock	image.c	/^void setBlock(image* img, Block block, const int i, const int j) {$/;"	f	signature:(image* img, Block block, const int i, const int j)
+setBlock	image.h	/^void setBlock(image* img, Block block, const int i, const int j);$/;"	p	signature:(image* img, Block block, const int i, const int j)
+size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon3	access:public
+skipComments	image.c	/^void skipComments(FILE *fp)$/;"	f	signature:(FILE *fp)
+sources	Makefile	/^sources=$(wildcard *.c)$/;"	m
+test	test_script.sh	/^function test {$/;"	f
+testDct	main.c	/^void testDct(image* input, image* output, Block b, float* quantify) {$/;"	f	signature:(image* input, image* output, Block b, float* quantify)
+testDct	main.c	/^void testDct(image* input, image* output, Block b, float* quantify);$/;"	p	file:	signature:(image* input, image* output, Block b, float* quantify)
+test_compression	test_script.sh	/^function test_compression {$/;"	f
+test_dct	test_script.sh	/^function test_dct {$/;"	f
+test_decompression	test_script.sh	/^function test_decompression {$/;"	f
+test_quantify	test_script.sh	/^function test_quantify {$/;"	f
+test_vectorize	test_script.sh	/^function test_vectorize {$/;"	f
+usage	main.c	/^void usage(char * progname) {$/;"	f	signature:(char * progname)
+usage	main.c	/^void usage(char * progname);$/;"	p	file:	signature:(char * progname)
+w	image.h	/^  int w;$/;"	m	struct:__anon3	access:public
+width	linearization.h	/^	int width;$/;"	m	struct:LinearizationIterator_t	access:public
+writeCompressed	image.c	/^void writeCompressed(const char *filename, const image *img){$/;"	f	signature:(const char *filename, const image *img)
+writeCompressed	image.h	/^void writeCompressed(const char *filename, const image *img);$/;"	p	signature:(const char *filename, const image *img)
+writePgm	image.c	/^void writePgm(const char *filename, const image *img)$/;"	f	signature:(const char *filename, const image *img)
+writePgm	image.h	/^void writePgm(const char *filename, const image *img);$/;"	p	signature:(const char *filename, const image *img)

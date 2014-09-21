@@ -6,7 +6,7 @@
 #include <math.h>
 
 #include "image.h"
-#include "linearization.h"
+#include "ZIterator.h"
 #include "dct-idct.h"
 #include "block.h"
 
@@ -20,7 +20,7 @@ typedef struct{
 void usage(char * progname);
 void parseArgs(char *argv[], s_args* args);
 void testDct(image* input, image* output, Block b, float* quantify);
-float* getQuantumMatrix();
+const float* getQuantumMatrix();
 float* getNormalizeMatrix();
 
 int main(int argc, char** argv) {
@@ -57,7 +57,9 @@ int main(int argc, char** argv) {
 			writePgm(args.outFilename, &output);
 			break;
 		case 4 : // test vectorize
-
+			block.normalize = false;
+			testDct(&img, &output, block, getQuantumMatrix());
+			writePgm(args.outFilename, &output);
 			break;
 		case 5 : // compute and print error
 
@@ -96,7 +98,7 @@ void parseArgs(char *argv[], s_args* args) {
 	strncpy(args->outFilename, argv[3], 256);
 }
 
-float* getQuantumMatrix() {
+const float* getQuantumMatrix() {
 	static const float matrix[64] = {16, 11, 10, 16, 24,  40,  51,  61,
 		12,  12, 14, 19, 26,  58,  60,  55,
 		14,  13, 16, 24, 40,  57,  69,  56,
@@ -113,7 +115,7 @@ float* getQuantumMatrix() {
 
 float* getNormalizeMatrix() {
 	static float matrix[64];
-	for(int i ; i < 64 ; ++i) {
+	for(int i=0 ; i < 64 ; ++i) {
 		matrix[i] = 8.f;
 	}
 

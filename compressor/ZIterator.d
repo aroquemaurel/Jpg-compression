@@ -1,4 +1,4 @@
-linearization.o linearization.d : linearization.c linearization.h \
+ZIterator.o ZIterator.d : ZIterator.c ZIterator.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdbool.h \
  /usr/include/assert.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/bits/predefs.h \
