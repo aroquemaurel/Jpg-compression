@@ -5,6 +5,7 @@
 #include <string.h>
 #include <assert.h>
 #include <ctype.h>
+#include <math.h>
 
 // from http://ugurkoltuk.wordpress.com/2010/03/04/an-extreme-simple-pgm-io-api/
 void skipComments(FILE *fp)
@@ -172,6 +173,13 @@ void writeCompressed(const char *filename, const image *img){
     lo = img->data[i];
     fputc(lo, pgmFile); 
   }
+}
+
+void setBlock(image* img, Block block, const int i, const int j) {
+	for(int k = 0 ; k < 64 ; ++k) {
+		block_applyQuantum(&block, k);
+		img->data[(j+k/8) * img->w + (i+k%8)] = block.data[k];
+	}
 }
 
 
