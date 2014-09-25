@@ -22,6 +22,7 @@ void parseArgs(char *argv[], s_args* args);
 void testDct(image* input, image* output, Block b, float* quantify);
 const float* getQuantumMatrix();
 float* getNormalizeMatrix();
+void vectorize(image* input, image* output, const float* quantify);
 
 int main(int argc, char** argv) {
 	s_args args;
@@ -57,9 +58,8 @@ int main(int argc, char** argv) {
 			writePgm(args.outFilename, &output);
 			break;
 		case 4 : // test vectorize
-			block.normalize = false;
-			testDct(&img, &output, block, getQuantumMatrix());
-			writePgm(args.outFilename, &output);
+			vectorize(&img, &output, getQuantumMatrix());
+			writeCompressed(args.outFilename,&output);
 			break;
 		case 5 : // compute and print error
 
@@ -70,7 +70,35 @@ int main(int argc, char** argv) {
 
 	return 0;
 }
+void vectorize(image* input, image* output, const float* quantify) {
+	ZIterator zit;
+	output->size = 0;
+	output->h = input->h;
+	output->w = input->w;
+	
+	for(int i = 0 ; i < input->w ; i +=8 ) {
+		for(int j = 0 ; j < input->h ; j += 8) {
+			float block[8*8];			
+			float block2[8*8];			
+			int z = 0;
+			dct(input,block,i,j);
+			zit = iterator_new(block, 8);
 
+			block2[z++] = block[0]; 
+			while(iterator_hasNext(zit)) {
+				block2[z++] = iterator_next(&zit);
+			}
+			for(int k = 0 ; k < 64 ; ++k) {
+				block2[k] /= round(quantify[k]);
+				output->data[(output->size)++] = block2[k];
+			}
+			
+		}
+	}
+//	for(int i = 0 ; i < output->size ; ++i) {
+//	output->data[i] = 0x42;
+//}
+}
 void testDct(image* input, image* output, Block b, float* quantify) {
 	for(int i = 0 ; i < input->w ; i +=8 ) {
 		for(int j = 0 ; j < input->h ; j += 8) {

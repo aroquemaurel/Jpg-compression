@@ -22,7 +22,7 @@ void block_setNormalize(Block* b, float v) {
 	b->normalize = true;
 }
 
-void block_setQuantification(Block* b, float* quantum) {
+void block_setQuantification(Block* b, const float* quantum) {
 	for(int i = 0 ; i < 8*8 ; ++i) {
 		b->quantum[i] = quantum[i];
 	}
