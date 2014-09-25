@@ -9,6 +9,7 @@
 #include "ZIterator.h"
 #include "dct-idct.h"
 #include "block.h"
+#include "util.h"
 
 typedef struct{
 	int compress;
@@ -23,7 +24,7 @@ void testDct(image* input, image* output, Block b, float* quantify);
 const float* getQuantumMatrix();
 float* getNormalizeMatrix();
 void vectorize(image* input, image* output, const float* quantify);
-
+void utilsValues(image* input);
 int main(int argc, char** argv) {
 	s_args args;
 	if(argc!=4) {
@@ -46,6 +47,8 @@ int main(int argc, char** argv) {
 			break;
 		case 1 : // compression
 			vectorize(&img, &output, getQuantumMatrix());
+				
+			utilsValues(&output);
 			writeCompressed(args.outFilename,&output);
 			break;
 		case 2 : // test dct
@@ -109,6 +112,29 @@ void testDct(image* input, image* output, Block b, float* quantify) {
 		}
 	}
 }
+
+void utilsValues(image* img) {
+	char* buff = malloc(sizeof(char)*sizeof(img->data));
+	int i;
+	int j = 0;
+	char* currentBlock;
+	for(i=0 ; i < img->size ; ++i) {
+		if(i % 64 == 0) {
+			currentBlock = buff+j;
+			*currentBlock = 0;
+			++j;
+		}
+		if(img->data[i] != 0) {
+			buff[j++] = img->data[i];
+	//		++(*currentBlock);
+		}
+	}
+	img->size = j;
+	for(i = 0 ; i < img->size ; ++i) {
+//		img->data[i] = buff[i];
+	}
+ }
+
 void usage(char * progname) {
 	printf("usage : %s mode in out\n", progname);
 	printf("mode \t 0 : decompression, 1 : compression, 2 : save dct (pgm format),\n\t 3 : save quantize (pgm format), 4 : save vectorize (xxx format), 5 output compression loss\n");

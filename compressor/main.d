@@ -25,4 +25,4 @@ main.o main.d : main.c /usr/include/stdlib.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathinline.h image.h block.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdbool.h ZIterator.h \
- dct-idct.h
+ dct-idct.h util.h
