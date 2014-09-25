@@ -43,9 +43,10 @@ int main(int argc, char** argv) {
 
 	switch(args.compress) {
 		case 0 : // decompression
-
 			break;
 		case 1 : // compression
+			vectorize(&img, &output, getQuantumMatrix());
+			writeCompressed(args.outFilename,&output);
 			break;
 		case 2 : // test dct
 			block.normalize = true;
@@ -59,7 +60,7 @@ int main(int argc, char** argv) {
 			break;
 		case 4 : // test vectorize
 			vectorize(&img, &output, getQuantumMatrix());
-			writeCompressed(args.outFilename,&output);
+			writePgm(args.outFilename,&output);
 			break;
 		case 5 : // compute and print error
 
@@ -79,20 +80,16 @@ void vectorize(image* input, image* output, const float* quantify) {
 	for(int i = 0 ; i < input->w ; i +=8 ) {
 		for(int j = 0 ; j < input->h ; j += 8) {
 			float block[8*8];			
-			float block2[8*8];			
-			int z = 0;
-			dct(input,block,i,j);
+			dct(input, block, j, i);
+			for(int k = 0 ; k < 64 ; ++k) {
+				block[k] /= (quantify[k]);
+			}
 			zit = iterator_new(block, 8);
 
-			block2[z++] = block[0]; 
+			output->data[(output->size)++] = round(iterator_value(zit)); 
 			while(iterator_hasNext(zit)) {
-				block2[z++] = iterator_next(&zit);
+				output->data[(output->size)++] = round(iterator_next(&zit));
 			}
-			for(int k = 0 ; k < 64 ; ++k) {
-				block2[k] /= round(quantify[k]);
-				output->data[(output->size)++] = block2[k];
-			}
-			
 		}
 	}
 //	for(int i = 0 ; i < output->size ; ++i) {

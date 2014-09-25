@@ -25,7 +25,7 @@ sources=$(wildcard *.c)
 echo:
 	echo $(sources)
 
-compressor: main.o dct-idct.o image.o ZIterator.o block.o
+compressor: main.o dct-idct.o image.o ZIterator.o block.o util.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 
 tests:
