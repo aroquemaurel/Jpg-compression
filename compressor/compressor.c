@@ -1,5 +1,4 @@
 #include "compressor.h"
-
 void utilsValues(image* img) {
 	char* buff = malloc(sizeof(char) * img->size);
 	int lastBlockCase = 0;
@@ -37,7 +36,7 @@ void utilsValues(image* img) {
 	free(buff);
 }
 
-void testDct(image* input, image* output, Block b, float* quantify) {
+void applyDct(image* input, image* output, Block b, float* quantify) {
 	for(int i = 0 ; i < input->w ; i +=8 ) {
 		for(int j = 0 ; j < input->h ; j += 8) {
 			dct(input,b.data,i,j);

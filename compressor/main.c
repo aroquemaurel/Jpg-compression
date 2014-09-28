@@ -6,6 +6,10 @@
 #include <math.h>
 
 #include "image.h"
+#include "ZIterator.h"
+#include "blockiterator.h"
+#include "dct-idct.h"
+#include "block.h"
 #include "util.h"
 #include "compressor.h"
 
@@ -20,7 +24,8 @@ void usage(char * progname);
 void parseArgs(char *argv[], s_args* args);
 const float* getQuantumMatrix();
 float* getNormalizeMatrix();
-
+void allocPgmOutput(image* img, image* output, char inFileName[256]);
+void allocCompressedOutput(image* img, image* output, char inFileName[256]);
 int main(int argc, char** argv) {
 	s_args args;
 	if(argc!=4) {
@@ -33,52 +38,70 @@ int main(int argc, char** argv) {
 	image output;
 	Block block = block_new();
 
-	readPgm(args.inFilename, &img);
-	output.data = (char*)malloc(img.h*img.w*sizeof(char));
-	output.h = img.h;
-	output.w = img.w;
 
 	switch(args.compress) {
 		case 0 : // decompression
 			break;
 		case 1 : // compression
+			allocPgmOutput(&img,&output,args.inFilename);
 			vectorize(&img, &output, getQuantumMatrix());
 				
 			utilsValues(&output);
 			writeCompressed(args.outFilename,&output);
 			break;
 		case 2 : // test dct
+			allocPgmOutput(&img,&output,args.inFilename);
 			block.normalize = true;
-			testDct(&img, &output, block, getNormalizeMatrix());
+			applyDct(&img, &output, block, getNormalizeMatrix());
 			writePgm(args.outFilename, &output);
 			break;
 		case 3 : // test quantify
+			allocPgmOutput(&img,&output,args.inFilename);
 			block.normalize = false;
-			testDct(&img, &output, block, getQuantumMatrix());
+			applyDct(&img, &output, block, getQuantumMatrix());
 			writePgm(args.outFilename, &output);
 			break;
 		case 4 : // test vectorize
+			allocPgmOutput(&img,&output,args.inFilename);
 			vectorize(&img, &output, getQuantumMatrix());
 			writePgm(args.outFilename,&output);
 			break;
 		case 5 : // compute and print error
+
 			break;
 		case 6: // Inverse utils values
+			allocCompressedOutput(&img,&output,args.inFilename);
+			writePgm(args.outFilename, &output);
+
 			break;
 		case 7: // Inverse vectorize
 			break;
 		case 8: // Inverse Quantify
 			break;
-		case 9: // Inverse Dct
+		case 9: // Inverse dct
 			break;
 		default :
 			usage(argv[0]);
 	}
 
+	free(img.data);
+	free(output.data);
+
 	return 0;
 }
+void allocPgmOutput(image* img, image* output, char inFileName[256]) {
+	readPgm(inFileName, img);
+	output->data = (char*)malloc(img->h*img->w*sizeof(char));
+	output->h = img->h;
+	output->w = img->w;
+}
 
-
+void allocCompressedOutput(image* img, image* output, char inFileName[256]) {
+	readCompressed(inFileName, img);
+	output->data = (char*)malloc(img->h*img->w*sizeof(char));
+	output->h = img->h;
+	output->w = img->w;
+}
 void usage(char * progname) {
 	printf("usage : %s mode in out\n", progname);
 	printf("mode \t 0 : decompression, 1 : compression, 2 : save dct (pgm format),\n\t 3 : save quantize (pgm format), 4 : save vectorize (xxx format), 5 output compression loss\n");
