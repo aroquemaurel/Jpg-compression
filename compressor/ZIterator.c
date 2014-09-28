@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 
-float iterator_next(ZIterator* it) {
-	assert(iterator_hasNext(*it));
+float zIterator_next(ZIterator* it) {
+	assert(zIterator_hasNext(*it));
 	if(it->line == 0 && it->column % 2 == 0) {
 		++it->column;
 		it->lastDirection = RIGHT;
@@ -48,32 +48,32 @@ float iterator_next(ZIterator* it) {
 	return it->data[it->line*it->size+it->column];
 }
 
-bool iterator_hasNext(ZIterator it) {
+bool zIterator_hasNext(ZIterator it) {
 	return !(it.column == it.size-1 && it.line == it.size-1);
 }
 
-bool iterator_hasPrevious(ZIterator it) {
+bool zIterator_hasPrevious(ZIterator it) {
 	return it.column != 0 && it.line != 0;
 }
 
-float iterator_value(ZIterator it) {
+float zIterator_value(ZIterator it) {
 	return it.data[it.line*it.size+it.column];
 }
 
-ZIterator iterator_new(float* pdata, const int size) {
-	ZIterator iterator;
-	iterator.data = (float*)malloc(sizeof(float)*size*size);
+ZIterator zIterator_new(float* pdata, const int size) {
+	ZIterator zIterator;
+	zIterator.data = (float*)malloc(sizeof(float)*size*size);
 
 	for(int i = 0 ; i < size*size; ++i) {
-		iterator.data[i] = pdata[i];	
+		zIterator.data[i] = pdata[i];	
 	}
 
-	iterator.line = 0;
-	iterator.column = 0;
-	iterator.size = size;
-	iterator.lastDirection = NONE;
+	zIterator.line = 0;
+	zIterator.column = 0;
+	zIterator.size = size;
+	zIterator.lastDirection = NONE;
 
-	return iterator;
+	return zIterator;
 }
 
 

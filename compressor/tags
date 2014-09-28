@@ -8,6 +8,13 @@
 BOTTOM	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
 BOTTOM_LEFT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
 Block	block.h	/^} Block;$/;"	t	typeref:struct:__anon2
+BlockIterator	blockiterator.h	/^} BlockIterator;$/;"	t	typeref:struct:BlockIterator_h
+BlockIterator_h	blockiterator.h	/^typedef struct BlockIterator_h {$/;"	s
+BlockIterator_h::data	blockiterator.h	/^	pixel_t* data;$/;"	m	struct:BlockIterator_h	access:public
+BlockIterator_h::height	blockiterator.h	/^	int height;$/;"	m	struct:BlockIterator_h	access:public
+BlockIterator_h::i	blockiterator.h	/^	int i;$/;"	m	struct:BlockIterator_h	access:public
+BlockIterator_h::j	blockiterator.h	/^	int j;$/;"	m	struct:BlockIterator_h	access:public
+BlockIterator_h::width	blockiterator.h	/^	int width;$/;"	m	struct:BlockIterator_h	access:public
 CC	Makefile	/^CC=gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-Wall -pedantic -std=c99 -fgnu89-inline -O3 $/;"	m
 COEFFS	dct-idct.c	157;"	d	file:
@@ -29,6 +36,7 @@ ZIterator_t::lastDirection	ZIterator.h	/^	Direction lastDirection;$/;"	m	struct:
 ZIterator_t::line	ZIterator.h	/^	int line;$/;"	m	struct:ZIterator_t	access:public
 ZIterator_t::size	ZIterator.h	/^	int size;$/;"	m	struct:ZIterator_t	access:public
 __BLOCK	block.h	2;"	d
+__BLOCK_ITERATOR	blockiterator.h	2;"	d
 __LINEARISATION	ZIterator.h	2;"	d
 __UTIL	util.h	2;"	d
 __anon1::compress	main.c	/^	int compress;$/;"	m	struct:__anon1	file:	access:public
@@ -42,6 +50,8 @@ __anon3::h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
 __anon3::size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon3	access:public
 __anon3::w	image.h	/^  int w;$/;"	m	struct:__anon3	access:public
 applyQuantum	block.c	/^void applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
+blockIterator_new	blockiterator.c	/^BlockIterator blockIterator_new(pixel_t* pdata, const int width, const int height) {$/;"	f	signature:(pixel_t* pdata, const int width, const int height)
+blockIterator_new	blockiterator.h	/^BlockIterator blockIterator_new(pixel_t* pdata, const int width, const int height);$/;"	p	signature:(pixel_t* pdata, const int width, const int height)
 block_applyQuantum	block.c	/^void block_applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
 block_applyQuantum	block.h	/^void block_applyQuantum(Block* b, int i);$/;"	p	signature:(Block* b, int i)
 block_new	block.c	/^Block block_new() {$/;"	f
@@ -55,6 +65,7 @@ column	ZIterator.h	/^	int column;$/;"	m	struct:ZIterator_t	access:public
 compress	main.c	/^	int compress;$/;"	m	struct:__anon1	file:	access:public
 data	ZIterator.h	/^	float* data;$/;"	m	struct:ZIterator_t	access:public
 data	block.h	/^	float* data;$/;"	m	struct:__anon2	access:public
+data	blockiterator.h	/^	pixel_t* data;$/;"	m	struct:BlockIterator_h	access:public
 data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon3	access:public
 dct	dct-idct.c	/^void dct(image *tga, float data[8*8],$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
 dct	dct-idct.h	/^void dct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
@@ -63,20 +74,13 @@ getNormalizeMatrix	main.c	/^float* getNormalizeMatrix();$/;"	p	file:
 getQuantumMatrix	main.c	/^const float* getQuantumMatrix() {$/;"	f
 getQuantumMatrix	main.c	/^const float* getQuantumMatrix();$/;"	p	file:
 h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
+height	blockiterator.h	/^	int height;$/;"	m	struct:BlockIterator_h	access:public
+i	blockiterator.h	/^	int i;$/;"	m	struct:BlockIterator_h	access:public
 idct	dct-idct.c	/^void idct(image *tga, float data[8*8], const int xpos, const int ypos)$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
 idct	dct-idct.h	/^void idct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
 image	image.h	/^} image;$/;"	t	typeref:struct:__anon3
 inFilename	main.c	/^	char inFilename[256];$/;"	m	struct:__anon1	file:	access:public
-iterator_hasNext	ZIterator.c	/^bool iterator_hasNext(ZIterator it) {$/;"	f	signature:(ZIterator it)
-iterator_hasNext	ZIterator.h	/^bool iterator_hasNext(ZIterator it);$/;"	p	signature:(ZIterator it)
-iterator_hasPrevious	ZIterator.c	/^bool iterator_hasPrevious(ZIterator it) {$/;"	f	signature:(ZIterator it)
-iterator_hasPrevious	ZIterator.h	/^bool iterator_hasPrevious(ZIterator it);$/;"	p	signature:(ZIterator it)
-iterator_new	ZIterator.c	/^ZIterator iterator_new(float* pdata, const int size) {$/;"	f	signature:(float* pdata, const int size)
-iterator_new	ZIterator.h	/^ZIterator iterator_new(float* pdata, const int size);$/;"	p	signature:(float* pdata, const int size)
-iterator_next	ZIterator.c	/^float iterator_next(ZIterator* it) {$/;"	f	signature:(ZIterator* it)
-iterator_next	ZIterator.h	/^float iterator_next(ZIterator* it);$/;"	p	signature:(ZIterator* it)
-iterator_value	ZIterator.c	/^float iterator_value(ZIterator it) {$/;"	f	signature:(ZIterator it)
-iterator_value	ZIterator.h	/^float iterator_value(ZIterator it);$/;"	p	signature:(ZIterator it)
+j	blockiterator.h	/^	int j;$/;"	m	struct:BlockIterator_h	access:public
 lastDirection	ZIterator.h	/^	Direction lastDirection;$/;"	m	struct:ZIterator_t	access:public
 line	ZIterator.h	/^	int line;$/;"	m	struct:ZIterator_t	access:public
 main	main.c	/^int main(int argc, char** argv) {$/;"	f	signature:(int argc, char** argv)
@@ -119,12 +123,23 @@ test_quantify	test_script.sh	/^function test_quantify {$/;"	f
 test_vectorize	test_script.sh	/^function test_vectorize {$/;"	f
 usage	main.c	/^void usage(char * progname) {$/;"	f	signature:(char * progname)
 usage	main.c	/^void usage(char * progname);$/;"	p	file:	signature:(char * progname)
-utilsValues	main.c	/^void utilsValues(image* input, image* output) {$/;"	f	signature:(image* input, image* output)
-utilsValues	main.c	/^void utilsValues(image* input, image* output);$/;"	p	file:	signature:(image* input, image* output)
+utilsValues	main.c	/^void utilsValues(image* img) {$/;"	f	signature:(image* img)
+utilsValues	main.c	/^void utilsValues(image*);$/;"	p	file:	signature:(image*)
 vectorize	main.c	/^void vectorize(image* input, image* output, const float* quantify) {$/;"	f	signature:(image* input, image* output, const float* quantify)
 vectorize	main.c	/^void vectorize(image* input, image* output, const float* quantify);$/;"	p	file:	signature:(image* input, image* output, const float* quantify)
 w	image.h	/^  int w;$/;"	m	struct:__anon3	access:public
+width	blockiterator.h	/^	int width;$/;"	m	struct:BlockIterator_h	access:public
 writeCompressed	image.c	/^void writeCompressed(const char *filename, const image *img){$/;"	f	signature:(const char *filename, const image *img)
 writeCompressed	image.h	/^void writeCompressed(const char *filename, const image *img);$/;"	p	signature:(const char *filename, const image *img)
 writePgm	image.c	/^void writePgm(const char *filename, const image *img)$/;"	f	signature:(const char *filename, const image *img)
 writePgm	image.h	/^void writePgm(const char *filename, const image *img);$/;"	p	signature:(const char *filename, const image *img)
+zIterator_hasNext	ZIterator.c	/^bool zIterator_hasNext(ZIterator it) {$/;"	f	signature:(ZIterator it)
+zIterator_hasNext	ZIterator.h	/^bool zIterator_hasNext(ZIterator it);$/;"	p	signature:(ZIterator it)
+zIterator_hasPrevious	ZIterator.c	/^bool zIterator_hasPrevious(ZIterator it) {$/;"	f	signature:(ZIterator it)
+zIterator_hasPrevious	ZIterator.h	/^bool zIterator_hasPrevious(ZIterator it);$/;"	p	signature:(ZIterator it)
+zIterator_new	ZIterator.c	/^ZIterator zIterator_new(float* pdata, const int size) {$/;"	f	signature:(float* pdata, const int size)
+zIterator_new	ZIterator.h	/^ZIterator zIterator_new(float* pdata, const int size);$/;"	p	signature:(float* pdata, const int size)
+zIterator_next	ZIterator.c	/^float zIterator_next(ZIterator* it) {$/;"	f	signature:(ZIterator* it)
+zIterator_next	ZIterator.h	/^float zIterator_next(ZIterator* it);$/;"	p	signature:(ZIterator* it)
+zIterator_value	ZIterator.c	/^float zIterator_value(ZIterator it) {$/;"	f	signature:(ZIterator it)
+zIterator_value	ZIterator.h	/^float zIterator_value(ZIterator it);$/;"	p	signature:(ZIterator it)

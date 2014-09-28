@@ -6,8 +6,9 @@
 #include <math.h>
 
 #include "image.h"
-#include "util.h"
-#include "compressor.h"
+#include "ZIterator.h"
+#include "dct-idct.h"
+#include "block.h"
 
 typedef struct{
 	int compress;
@@ -18,9 +19,11 @@ typedef struct{
 
 void usage(char * progname);
 void parseArgs(char *argv[], s_args* args);
+void testDct(image* input, image* output, Block b, float* quantify);
 const float* getQuantumMatrix();
 float* getNormalizeMatrix();
-
+void vectorize(image* input, image* output, const float* quantify);
+void utilsValues(image* input, image* output);
 int main(int argc, char** argv) {
 	s_args args;
 	if(argc!=4) {
@@ -42,9 +45,9 @@ int main(int argc, char** argv) {
 		case 0 : // decompression
 			break;
 		case 1 : // compression
-			vectorize(&img, &output, getQuantumMatrix());
+			vectorize(&img, &img, getQuantumMatrix());
 				
-			utilsValues(&output);
+			utilsValues(&img, &output);
 			writeCompressed(args.outFilename,&output);
 			break;
 		case 2 : // test dct
@@ -62,14 +65,7 @@ int main(int argc, char** argv) {
 			writePgm(args.outFilename,&output);
 			break;
 		case 5 : // compute and print error
-			break;
-		case 6: // Inverse utils values
-			break;
-		case 7: // Inverse vectorize
-			break;
-		case 8: // Inverse Quantify
-			break;
-		case 9: // Inverse Dct
+
 			break;
 		default :
 			usage(argv[0]);
@@ -77,7 +73,48 @@ int main(int argc, char** argv) {
 
 	return 0;
 }
+void vectorize(image* input, image* output, const float* quantify) {
+	ZIterator zit;
+	output->size = 0;
+	output->h = input->h;
+	output->w = input->w;
+	
+	for(int i = 0 ; i < input->w ; i +=8 ) {
+		for(int j = 0 ; j < input->h ; j += 8) {
+			float block[8*8];			
+			dct(input, block, j, i);
+			for(int k = 0 ; k < 64 ; ++k) {
+				block[k] /= (quantify[k]);
+			}
+			zit = iterator_new(block, 8);
 
+			output->data[(output->size)++] = round(iterator_value(zit)); 
+			while(iterator_hasNext(zit)) {
+				output->data[(output->size)++] = round(iterator_next(&zit));
+			}
+		}
+	}
+//	for(int i = 0 ; i < output->size ; ++i) {
+//	output->data[i] = 0x42;
+//}
+}
+void testDct(image* input, image* output, Block b, float* quantify) {
+	for(int i = 0 ; i < input->w ; i +=8 ) {
+		for(int j = 0 ; j < input->h ; j += 8) {
+			dct(input,b.data,i,j);
+			if(b.normalize) {
+				block_setNormalize(&b,quantify[0]);
+			} else {
+				block_setQuantification(&b,quantify);
+			}
+			setBlock(output,b, i,j);
+		}
+	}
+}
+
+void utilsValues(image* input, image* output) {
+	char* values;
+}
 
 void usage(char * progname) {
 	printf("usage : %s mode in out\n", progname);

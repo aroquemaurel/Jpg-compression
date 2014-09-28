@@ -9,18 +9,17 @@ typedef struct ZIterator_t {
 	int column;
 	int size;
 	Direction lastDirection;
-	
 } ZIterator;
 
-ZIterator iterator_new(float* pdata, const int size);
+ZIterator zIterator_new(float* pdata, const int size);
 
 /* 
  * Return the next element  
  */
-float iterator_next(ZIterator* it);
-bool iterator_hasNext(ZIterator it);
-bool iterator_hasPrevious(ZIterator it);
-float iterator_value(ZIterator it);
+float zIterator_next(ZIterator* it);
+bool zIterator_hasNext(ZIterator it);
+bool zIterator_hasPrevious(ZIterator it);
+float zIterator_value(ZIterator it);
 
 #endif
 

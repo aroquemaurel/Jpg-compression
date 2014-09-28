@@ -1,4 +1,4 @@
-compressor.o compressor.d : compressor.c compressor.h image.h block.h \
+blockiterator.o blockiterator.d : blockiterator.c blockiterator.h image.h block.h \
  /usr/include/math.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/bits/predefs.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -14,5 +14,4 @@ compressor.o compressor.d : compressor.c compressor.h image.h block.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathinline.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdbool.h \
- /usr/include/stdlib.h /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h \
- blockiterator.h ZIterator.h
+ /usr/include/stdlib.h /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h
