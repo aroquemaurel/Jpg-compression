@@ -24,7 +24,7 @@ void testDct(image* input, image* output, Block b, float* quantify);
 const float* getQuantumMatrix();
 float* getNormalizeMatrix();
 void vectorize(image* input, image* output, const float* quantify);
-void utilsValues(image* input);
+void utilsValues(image*);
 int main(int argc, char** argv) {
 	s_args args;
 	if(argc!=4) {
@@ -114,25 +114,28 @@ void testDct(image* input, image* output, Block b, float* quantify) {
 }
 
 void utilsValues(image* img) {
-	char* buff = malloc(sizeof(char)*sizeof(img->data));
-	int i;
-	int j = 0;
-	char* currentBlock;
-	for(i=0 ; i < img->size ; ++i) {
-		if(i % 64 == 0) {
-			currentBlock = buff+j;
-			*currentBlock = 0;
-			++j;
+	char* buff = malloc(sizeof(char) * img->size);
+ 	int currentCase = 0;
+	bool endZero = false;
+	for(int i = 63 ; i < img->size; i+=64) {
+		for(int j = 63 ; j >= 0 ; --j) {
+			if(img->data[i-(63-j)] != 0) {
+				if(!endZero) {
+					buff[currentCase++] = j+1;
+					endZero = true;
+				}
+			}
+			if(endZero) {
+				buff[currentCase++] = img->data[i-(63-j)];
+			}
 		}
-		if(img->data[i] != 0) {
-			buff[j++] = img->data[i];
-	//		++(*currentBlock);
-		}
+		endZero = false;
 	}
-	img->size = j;
-	for(i = 0 ; i < img->size ; ++i) {
-//		img->data[i] = buff[i];
+
+	for(int i = 0 ; i < currentCase ; ++i) {
+		img->data[i] = buff[i];
 	}
+	img->size = currentCase;
  }
 
 void usage(char * progname) {
