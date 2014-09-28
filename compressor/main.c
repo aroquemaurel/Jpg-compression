@@ -95,9 +95,6 @@ void vectorize(image* input, image* output, const float* quantify) {
 			}
 		}
 	}
-//	for(int i = 0 ; i < output->size ; ++i) {
-//	output->data[i] = 0x42;
-//}
 }
 void testDct(image* input, image* output, Block b, float* quantify) {
 	for(int i = 0 ; i < input->w ; i +=8 ) {
@@ -113,29 +110,37 @@ void testDct(image* input, image* output, Block b, float* quantify) {
 	}
 }
 
+/* 
+ * TODO : BlockIterator
+ * */
 void utilsValues(image* img) {
 	char* buff = malloc(sizeof(char) * img->size);
- 	int currentCase = 0;
+	int lastBlockCase = 0;
+	int firstBlockCase = 0;
+	int k = 0;
 	bool endZero = false;
 	for(int i = 63 ; i < img->size; i+=64) {
+		k = 0;
 		for(int j = 63 ; j >= 0 ; --j) {
 			if(img->data[i-(63-j)] != 0) {
 				if(!endZero) {
-					buff[currentCase++] = j+1;
+					buff[firstBlockCase] = j+1;
+					lastBlockCase = firstBlockCase+j+1;
 					endZero = true;
 				}
 			}
 			if(endZero) {
-				buff[currentCase++] = img->data[i-(63-j)];
+				buff[lastBlockCase-(k++)] = img->data[i-(63-j)];
 			}
 		}
+		firstBlockCase = lastBlockCase+1;
 		endZero = false;
 	}
 
-	for(int i = 0 ; i < currentCase ; ++i) {
+	for(int i = 0 ; i < lastBlockCase+1; ++i) {
 		img->data[i] = buff[i];
 	}
-	img->size = currentCase;
+	img->size = lastBlockCase+1;
  }
 
 void usage(char * progname) {
