@@ -71,6 +71,7 @@ int main(int argc, char** argv) {
 			break;
 		case 6: // Inverse utils values
 			allocCompressedOutput(&img,&output,args.inFilename);
+			obtainsSignificativesValues(&img,&output);
 			writePgm(args.outFilename, &output);
 
 			break;
