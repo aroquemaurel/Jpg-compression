@@ -119,7 +119,7 @@ void utilsValues(image* img) {
 	int firstBlockCase = 0;
 	int k = 0;
 	bool endZero = false;
-	for(int i = 63 ; i < img->size; i+=64) {
+	for(int i = 63 ; i <= img->size; i+=64) {
 		k = 0;
 		for(int j = 63 ; j >= 0 ; --j) {
 			if(img->data[i-(63-j)] != 0) {
@@ -133,6 +133,9 @@ void utilsValues(image* img) {
 				buff[lastBlockCase-(k++)] = img->data[i-(63-j)];
 			}
 		}
+		if(!endZero) {
+			lastBlockCase = firstBlockCase;
+		}
 		firstBlockCase = lastBlockCase+1;
 		endZero = false;
 	}
@@ -141,6 +144,7 @@ void utilsValues(image* img) {
 		img->data[i] = buff[i];
 	}
 	img->size = lastBlockCase+1;
+	free(buff);
  }
 
 void usage(char * progname) {
