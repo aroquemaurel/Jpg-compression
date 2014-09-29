@@ -14,4 +14,5 @@ decompressor.o decompressor.d : decompressor.c decompressor.h image.h block.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathinline.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdbool.h \
- /usr/include/stdlib.h /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h
+ /usr/include/stdlib.h /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h \
+ util.h

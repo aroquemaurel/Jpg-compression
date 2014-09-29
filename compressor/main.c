@@ -73,7 +73,6 @@ int main(int argc, char** argv) {
 			allocCompressedOutput(&img,&output,args.inFilename);
 			obtainsSignificativesValues(&img,&output);
 			writePgm(args.outFilename, &output);
-
 			break;
 		case 7: // Inverse vectorize
 			break;

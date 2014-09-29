@@ -258,8 +258,8 @@ test quantify;
 test vectorize;
 test compression;
 test inverse_utils_values;
-test inverse_vectorize;
-test inverse_quantify;
-test inverse_dct;
-test decompression;
+#test inverse_vectorize;
+#test inverse_quantify;
+#test inverse_dct;
+#test decompression;
 exit 0
