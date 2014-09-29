@@ -50,8 +50,10 @@ __anon3::data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon3	access:public
 __anon3::h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
 __anon3::size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon3	access:public
 __anon3::w	image.h	/^  int w;$/;"	m	struct:__anon3	access:public
-allocPgmOutput	main.c	/^void allocPgmOutput(image* img, image* output, char* inFileName) {$/;"	f	signature:(image* img, image* output, char* inFileName)
-allocPgmOutput	main.c	/^void allocPgmOutput(image* img, image* output, char* inFileName);$/;"	p	file:	signature:(image* img, image* output, char* inFileName)
+allocCompressedOutput	main.c	/^void allocCompressedOutput(image* img, image* output, char inFileName[256]) {$/;"	f	signature:(image* img, image* output, char inFileName[256])
+allocCompressedOutput	main.c	/^void allocCompressedOutput(image* img, image* output, char inFileName[256]);$/;"	p	file:	signature:(image* img, image* output, char inFileName[256])
+allocPgmOutput	main.c	/^void allocPgmOutput(image* img, image* output, char inFileName[256]) {$/;"	f	signature:(image* img, image* output, char inFileName[256])
+allocPgmOutput	main.c	/^void allocPgmOutput(image* img, image* output, char inFileName[256]);$/;"	p	file:	signature:(image* img, image* output, char inFileName[256])
 applyDct	compressor.c	/^void applyDct(image* input, image* output, Block b, float* quantify) {$/;"	f	signature:(image* input, image* output, Block b, float* quantify)
 applyDct	compressor.h	/^void applyDct(image* input, image* output, Block b, float* quantify);$/;"	p	signature:(image* input, image* output, Block b, float* quantify)
 applyQuantum	block.c	/^void applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
@@ -88,6 +90,8 @@ idct	dct-idct.c	/^void idct(image *tga, float data[8*8], const int xpos, const i
 idct	dct-idct.h	/^void idct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
 image	image.h	/^} image;$/;"	t	typeref:struct:__anon3
 inFilename	main.c	/^	char inFilename[256];$/;"	m	struct:__anon1	file:	access:public
+invVectorize	decompressor.c	/^void invVectorize(image* in, image* out) {$/;"	f	signature:(image* in, image* out)
+invVectorize	decompressor.h	/^void invVectorize(image* in, image* out);$/;"	p	signature:(image* in, image* out)
 lastDirection	ZIterator.h	/^	Direction lastDirection;$/;"	m	struct:ZIterator_t	access:public
 line	ZIterator.h	/^	int line;$/;"	m	struct:ZIterator_t	access:public
 main	main.c	/^int main(int argc, char** argv) {$/;"	f	signature:(int argc, char** argv)

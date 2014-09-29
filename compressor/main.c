@@ -75,6 +75,9 @@ int main(int argc, char** argv) {
 			writePgm(args.outFilename, &output);
 			break;
 		case 7: // Inverse vectorize
+			allocPgmOutput(&img,&output,args.inFilename);
+			invVectorize(&img, &output);
+			writePgm(args.outFilename, &output);
 			break;
 		case 8: // Inverse Quantify
 			break;

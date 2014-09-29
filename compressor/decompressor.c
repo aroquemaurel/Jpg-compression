@@ -5,7 +5,6 @@ void obtainsSignificativesValues(image* in, image* out) {
 	int nbValues = 0; 
 	int j = 0;
 	out->data = calloc(sizeof(char) * out->w * out->h, sizeof(char));
-	printCharVector(in->data,in->size);
 
 	for(int i = 0 ; i < in->size ; ++i) {
 		if(nbValues == 0) {
@@ -21,4 +20,7 @@ void obtainsSignificativesValues(image* in, image* out) {
 			out->data[j++] = in->data[i];
 		}
 	}
+}
+
+void invVectorize(image* in, image* out) {
 }
