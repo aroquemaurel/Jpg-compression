@@ -41,6 +41,10 @@ int main(int argc, char** argv) {
 
 	switch(args.compress) {
 		case 0 : // decompression
+			allocCompressedOutput(&img,&output,args.inFilename);
+			obtainsSignificativesValues(&output,&output);
+			invVectorize(&output,&output);
+			writePgm(args.outFilename,&output);
 			break;
 		case 1 : // compression
 			allocPgmOutput(&img,&output,args.inFilename);

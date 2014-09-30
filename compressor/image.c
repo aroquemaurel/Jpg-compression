@@ -177,7 +177,7 @@ void writeCompressed(const char *filename, const image *img){
 
 void setBlock(image* img, Block block, const int i, const int j) {
 	for(int k = 0 ; k < 64 ; ++k) {
-		block_applyQuantum(&block, k);
+	block_applyQuantum(&block, k);
 		img->data[(j+k/8) * img->w + (i+k%8)] = block.data[k];
 	}
 }

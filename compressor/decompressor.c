@@ -25,24 +25,26 @@ void obtainsSignificativesValues(image* in, image* out) {
 }
 
 void invVectorize(image* in, image* out) {
-	float* buff = calloc(sizeof(float), 8*8);
-	int k = 0;
+//	float* buff = calloc(sizeof(float), 8*8);
 	Block block = block_new();
+	int k = 0;
+	float v;
 
-	for(int i = 0 ; i < in->w ; i +=8 ) {
-		for(int j = 0 ; j < in->h ; j += 8) {
-			for(ZIterator zit = zIterator_new(buff, 8); 
+	for(int i = 0  ;i < in->h * in->w ; i += 64) {
+		k = 0;
+			for(ZIterator zit = zIterator_new((in->data)+i, 8); 
 					zIterator_hasNext(zit) ; 
-					zIterator_next(&zit)
+					v = zIterator_next(&zit)
 			   ) {
-				buff[zit.line*8 + zit.column] = in->data[k++];
+//				block.data[zit.line*8 + zit.column] = in->data[k++];
+				block.data[k++] = v; 
 			}
 			// TODO SUppress me
 			for(int l = 0 ; l < 64 ; ++l) {
-				out->data[(j+l/8) * out->w + (i+l%8)] = buff[l];
+				out->data[in->h*in->w * 64 + l] = block.data[l];
+//				out->data[(j+l/8) * out->w + (i+l%8)] = block.data[l];
 			}
-		}	
+//			setBlock(out,`< Block block>`,`< const int i>`,`< const int j>`)
 	}
 
-	free(buff);
 }
