@@ -4,7 +4,7 @@
 void printMatrix(float** matrix, const int width, const int height) {
 	for(int i = 0 ; i < height ; ++i) {
 		for(int j = 0 ; j < width ; ++j) {
-			if(matrix[i][j] < 10) {
+			if(matrix[i][j] < 10 && matrix[i][j] >= 0) {
 				printf("0%.1f ", matrix[i][j]);
 			} else {
 				printf("%.1f ", matrix[i][j]);
@@ -17,7 +17,7 @@ void printMatrix(float** matrix, const int width, const int height) {
 void printMatrixAsACharVector(char* matrix, const int width, const int height) {
 	for(int i = 0 ; i < height ; ++i) {
 		for(int j = 0 ; j < width ; ++j) {
-			if(matrix[i*width+j] < 10) {
+			if(matrix[i*width+j] < 10 && matrix[i*width+j] >= 0) {
 				printf("0%d ", matrix[i*width+j]);
 			} else {
 				printf("%d ", matrix[i*width+j]);
@@ -30,7 +30,7 @@ void printMatrixAsACharVector(char* matrix, const int width, const int height) {
 void printMatrixAsAFloatVector(float* matrix, const int width, const int height) {
 	for(int i = 0 ; i < height ; ++i) {
 		for(int j = 0 ; j < width ; ++j) {
-			if(matrix[i*width+j] < 10) {
+			if(matrix[i*width+j] < 10 && matrix[i*width+j] >= 0) {
 				printf("0%.1f ", matrix[i*width+j]);
 			} else {
 				printf("%.1f ", matrix[i*width+j]);
