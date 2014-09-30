@@ -42,9 +42,9 @@ int main(int argc, char** argv) {
 	switch(args.compress) {
 		case 0 : // decompression
 			allocCompressedOutput(&img,&output,args.inFilename);
-			obtainsSignificativesValues(&output,&output);
-			invVectorize(&output,&output);
-			writePgm(args.outFilename,&output);
+			obtainsSignificativesValues(&img,&output);
+			invVectorize(&output, &output, getQuantumMatrix());
+			writePgm(args.outFilename, &output);
 			break;
 		case 1 : // compression
 			allocPgmOutput(&img,&output,args.inFilename);
@@ -78,13 +78,11 @@ int main(int argc, char** argv) {
 			obtainsSignificativesValues(&img,&output);
 			writePgm(args.outFilename, &output);
 			break;
-		case 7: // Inverse vectorize
+		case 7: // Inverse vectorize, quantify and dct
 			allocCompressedOutput(&img,&output,args.inFilename);
 			obtainsSignificativesValues(&img,&output);
-			invVectorize(&output, &output);
+			invVectorize(&output, &output, getQuantumMatrix());
 			writePgm(args.outFilename, &output);
-			break;
-		case 8: // Inverse Quantify
 			break;
 		case 9: // Inverse dct
 			break;

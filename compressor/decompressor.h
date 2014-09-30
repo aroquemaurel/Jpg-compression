@@ -4,7 +4,7 @@
 #include "ZIterator.h"
 
 void obtainsSignificativesValues(image* in, image* out);
-void invVectorize(image* in, image* out);
+void invVectorize(image* in, image* out, float* quantify);
 #endif
 
 

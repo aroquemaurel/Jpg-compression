@@ -15,4 +15,4 @@ decompressor.o decompressor.d : decompressor.c decompressor.h image.h block.h \
  /usr/include/x86_64-linux-gnu/bits/mathinline.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdbool.h \
  /usr/include/stdlib.h /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h \
- ZIterator.h util.h blockiterator.h
+ ZIterator.h util.h blockiterator.h dct-idct.h
