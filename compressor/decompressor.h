@@ -3,8 +3,8 @@
 #include "image.h"
 #include "ZIterator.h"
 
-void obtainsSignificativesValues(image* in, image* out);
-void invVectorize(image* in, image* out, float* quantify);
+void invUtilsValues(image* in, image* out);
+void uncompress(image* in, image* out, float* quantify);
 #endif
 
 

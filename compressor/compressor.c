@@ -5,8 +5,9 @@ void utilsValues(image* img) {
 	int firstBlockCase = 0;
 	int k = 0;
 	bool endZero = false;
+	BlockIterator it;
 
-	for(BlockIterator it = blockIterator_new(img->data, img->w, img->h) ; 
+	for(it = blockIterator_new(img->data, img->w, img->h) ; 
 			blockIterator_hasNext(it) ;
 			blockIterator_next(&it)) {
 		k = 0;
@@ -28,6 +29,7 @@ void utilsValues(image* img) {
 		firstBlockCase = lastBlockCase+1;
 		endZero = false;
 	}
+	blockIterator_delete(&it);
 
 	for(int i = 0 ; i < lastBlockCase+1; ++i) {
 		img->data[i] = buff[i];
@@ -69,6 +71,8 @@ void vectorize(image* input, image* output, const float* quantify) {
 			while(zIterator_hasNext(zit)) {
 				output->data[(output->size)++] = round(zIterator_next(&zit));
 			}
+
+			zIterator_delete(&zit);
 		}
 	}
 }

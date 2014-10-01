@@ -20,6 +20,7 @@ float zIterator_next(ZIterator* it);
 bool zIterator_hasNext(ZIterator it);
 bool zIterator_hasPrevious(ZIterator it);
 float zIterator_value(ZIterator it);
+void zIterator_delete(ZIterator* it);
 
 #endif
 

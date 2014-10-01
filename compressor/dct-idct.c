@@ -155,7 +155,6 @@ void dct(image *tga, float data[8*8],
 double* initCos() {
 	static float* allCos = 0;
 	static double piDivide16 = M_PI/16.0; 
-	int i = 0;
 
 	if(allCos == 0) {
 		allCos = malloc(sizeof(double) * (2*8+1)*8);
@@ -195,7 +194,6 @@ void idct(image *tga, float data[8*8], const int xpos, const int ypos) {
 
 			for(v = 0; v < 8; ++v) {
 				for(u = 0; u < 8; ++u) {
-
 					COEFFS(Cu,Cv,u,v);
 					S = data[v*8+u];
 				

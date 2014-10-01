@@ -4,7 +4,7 @@
 #include "ZIterator.h"
 #include "dct-idct.h"
 
-void obtainsSignificativesValues(image* in, image* out) {
+void invUtilsValues(image* in, image* out) {
 	int nbValues = 0; 
 	int j = 0;
 	out->data = calloc(sizeof(char) * out->w * out->h, sizeof(char));
@@ -25,7 +25,7 @@ void obtainsSignificativesValues(image* in, image* out) {
 	}
 }
 
-void invVectorize(image* in, image* out, float* quantify) {
+void uncompress(image* in, image* out, float* quantify) {
 	Block block = block_new();
 	float v;
 	int colBlock = 0;
@@ -45,7 +45,6 @@ void invVectorize(image* in, image* out, float* quantify) {
 		}
 		block.data[zit.line*8 + zit.column] = in->data[i + (kIn++)]; // last pixel
 
-
 		for(int n = 0; n < 8 ; ++n) {
 			for(int m = 0; m < 8 ; ++m) {
 				block.data[n*8 + m] *= quantify[n*8 + m];
@@ -58,4 +57,6 @@ void invVectorize(image* in, image* out, float* quantify) {
 			lineBlock += 8;
 		}
 	}
+
+	block_delete(&block);
 }

@@ -21,3 +21,10 @@ pixel_t blockIterator_next(BlockIterator* it) {
 pixel_t blockIterator_hasNext(BlockIterator it) {
 	return (it.pos < it.width*it.height);
 }
+
+void blockIterator_delete(BlockIterator* it) {
+	it->pos = 0;
+	it->height = 0;
+	it->width = 0;
+	free(it->data);
+}

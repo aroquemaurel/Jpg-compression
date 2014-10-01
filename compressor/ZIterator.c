@@ -76,5 +76,10 @@ ZIterator zIterator_new(float* pdata, const int size) {
 	return zIterator;
 }
 
-
+void zIterator_delete(ZIterator* it) {
+	it->column = 0;
+	it->line = 0;
+	it->size = 0;
+	free(it->data);
+}
 

@@ -35,3 +35,9 @@ void block_applyQuantum(Block* b, int i) {
 		b->data[i] = round(b->data[i]); 
 	} 
 }
+
+void block_delete(Block* block) {
+	block->normalize = false;
+	free(block->quantum);
+	free(block->data);
+}

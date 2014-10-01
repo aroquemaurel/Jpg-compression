@@ -19,7 +19,6 @@ typedef struct{
 	char outFilename[256];
 } s_args;
 
-
 void usage(char * progname);
 void parseArgs(char *argv[], s_args* args);
 const float* getQuantumMatrix();
@@ -29,7 +28,7 @@ void allocCompressedOutput(image* img, image* output, char inFileName[256]);
 
 int main(int argc, char** argv) {
 	s_args args;
-	if(argc!=4) {
+	if(argc != 4) {
 		usage(argv[0]);
 	} else {
 		parseArgs(argv, &args);
@@ -41,36 +40,42 @@ int main(int argc, char** argv) {
 
 	switch(args.compress) {
 		case 0 : // decompression
-			allocCompressedOutput(&img,&output,args.inFilename);
-			obtainsSignificativesValues(&img,&output);
+			readCompressed(args.inFilename, &img);
+			allocOutput(&img,&output);
+			invUtilsValues(&img,&output);
+			free(img.data);
 			img.data = malloc(sizeof(char) * output.h*output.w);
 			for(int i = 0 ; i < output.h * output.w ; ++i ) {
 				img.data[i] = output.data[i];
 			}
-			invVectorize(&img, &output, getQuantumMatrix());
+			uncompress(&img, &output, getQuantumMatrix());
 			writePgm(args.outFilename, &output);
 			break;
 		case 1 : // compression
-			allocPgmOutput(&img,&output,args.inFilename);
+			readPgm(args.inFilename, &img);
+			allocOutput(&img,&output);
 			vectorize(&img, &output, getQuantumMatrix());
 				
 			utilsValues(&output);
 			writeCompressed(args.outFilename,&output);
 			break;
 		case 2 : // test dct
-			allocPgmOutput(&img,&output,args.inFilename);
+			readPgm(args.inFilename, &img);
+			allocOutput(&img,&output);
 			block.normalize = true;
 			applyDct(&img, &output, block, getNormalizeMatrix());
 			writePgm(args.outFilename, &output);
 			break;
 		case 3 : // test quantify
-			allocPgmOutput(&img,&output,args.inFilename);
+			readPgm(args.inFilename, &img);
+			allocOutput(&img,&output);
 			block.normalize = false;
 			applyDct(&img, &output, block, getQuantumMatrix());
 			writePgm(args.outFilename, &output);
 			break;
 		case 4 : // test vectorize
-			allocPgmOutput(&img,&output,args.inFilename);
+			readPgm(args.inFilename, &img);
+			allocOutput(&img,&output);
 			vectorize(&img, &output, getQuantumMatrix());
 			writePgm(args.outFilename,&output);
 			break;
@@ -78,14 +83,9 @@ int main(int argc, char** argv) {
 
 			break;
 		case 6: // Inverse utils values
-			allocCompressedOutput(&img,&output,args.inFilename);
-			obtainsSignificativesValues(&img,&output);
-			writePgm(args.outFilename, &output);
-			break;
-		case 7: // Inverse vectorize, quantify and dct
-			allocCompressedOutput(&img,&output,args.inFilename);
-			obtainsSignificativesValues(&img,&output);
-			invVectorize(&output, &output, getQuantumMatrix());
+			readCompressed(args.inFilename, &img);
+			allocOutput(&img,&output);
+			invUtilsValues(&img,&output);
 			writePgm(args.outFilename, &output);
 			break;
 		default :
@@ -94,22 +94,16 @@ int main(int argc, char** argv) {
 
 	free(img.data);
 	free(output.data);
+	free(initCos());
 
-	return 0;
+	return EXIT_SUCCESS;
 }
-void allocPgmOutput(image* img, image* output, char inFileName[256]) {
-	readPgm(inFileName, img);
+void allocOutput(image* img, image* output) {
 	output->data = (char*)malloc(img->h*img->w*sizeof(char));
 	output->h = img->h;
 	output->w = img->w;
 }
 
-void allocCompressedOutput(image* img, image* output, char inFileName[256]) {
-	readCompressed(inFileName, img);
-	output->data = malloc(img->h*img->w*sizeof(pixel_t));
-	output->h = img->h;
-	output->w = img->w;
-}
 void usage(char * progname) {
 	printf("usage : %s mode in out\n", progname);
 	printf("mode \t 0 : decompression, 1 : compression, 2 : save dct (pgm format),\n\t 3 : save quantize (pgm format), 4 : save vectorize (xxx format), 5 output compression loss\n");
