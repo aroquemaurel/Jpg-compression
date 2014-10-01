@@ -26,6 +26,7 @@ const float* getQuantumMatrix();
 float* getNormalizeMatrix();
 void allocPgmOutput(image* img, image* output, char inFileName[256]);
 void allocCompressedOutput(image* img, image* output, char inFileName[256]);
+
 int main(int argc, char** argv) {
 	s_args args;
 	if(argc!=4) {
