@@ -38,7 +38,6 @@ int main(int argc, char** argv) {
 	image output;
 	Block block = block_new();
 
-
 	switch(args.compress) {
 		case 0 : // decompression
 			allocCompressedOutput(&img,&output,args.inFilename);
@@ -88,8 +87,6 @@ int main(int argc, char** argv) {
 			invVectorize(&output, &output, getQuantumMatrix());
 			writePgm(args.outFilename, &output);
 			break;
-		case 9: // Inverse dct
-			break;
 		default :
 			usage(argv[0]);
 	}
@@ -108,7 +105,7 @@ void allocPgmOutput(image* img, image* output, char inFileName[256]) {
 
 void allocCompressedOutput(image* img, image* output, char inFileName[256]) {
 	readCompressed(inFileName, img);
-	output->data = (char*)malloc(img->h*img->w*sizeof(char));
+	output->data = malloc(img->h*img->w*sizeof(pixel_t));
 	output->h = img->h;
 	output->w = img->w;
 }

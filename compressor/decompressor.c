@@ -26,23 +26,29 @@ void obtainsSignificativesValues(image* in, image* out) {
 }
 
 void invVectorize(image* in, image* out, float* quantify) {
-	char* buff = malloc(sizeof(char) * in->w * in->h);
 	Block block = block_new();
 	float v;
 	int colBlock = 0;
 	int lineBlock = 0;
+	int kIn = 0;
+	out->size = in->h*in->w;
+	out->h = in->h;
+	out->w = in->w;
+
 	for(int i = 0 ; i < in->h * in->w ; i += 64) { // Iterator on image : block by block
-		int kIn = 0;
+		kIn = 0;
 		ZIterator zit = zIterator_new(block.data,8);
 		block.data[0] = in->data[i]; 
 		while(zIterator_hasNext(zit)) {
-			block.data[zit.line * 8 + zit.column] = in->data[i+(kIn++)];
+			block.data[zit.line*8 + zit.column] = in->data[i + (kIn++)];
 			zIterator_next(&zit);
 		}
-		int kOut = 0;
+		block.data[zit.line*8 + zit.column] = in->data[i + (kIn++)]; // last pixel
+
+
 		for(int n = 0; n < 8 ; ++n) {
 			for(int m = 0; m < 8 ; ++m) {
-				block.data[n*8+m] *= quantify[n*8+m];
+				block.data[n*8 + m] *= quantify[n*8 + m];
 			}
 		}
 		idct(out, block.data, colBlock, lineBlock);
