@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
 	return EXIT_SUCCESS;
 }
 void allocOutput(image* img, image* output) {
-	output->data = (char*)malloc(img->h*img->w*sizeof(char));
+	output->data = (char*)malloc(img->h*img->w*sizeof(pixel_t));
 	output->h = img->h;
 	output->w = img->w;
 }

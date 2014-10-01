@@ -88,15 +88,15 @@ double getCompressionError(image* img) {
 	uncompressImg.data = malloc(sizeof(pixel_t) * img->h * img->w);
 	compress(img, &compressImg, getQuantumMatrix());
 	uncompress(&compressImg, &uncompressImg, getQuantumMatrix());
-	
+
 	for (int i = 0; i < img->h*img->w; i++) {
 		error += 	pow(img->data[i] - uncompressImg.data[i], 2);	
 	}
 	error /= img->h*img->w;
-	
+
 	free(compressImg.data);
 	free(uncompressImg.data);
-	
+
 	return error;
 }
 
