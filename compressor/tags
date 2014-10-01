@@ -3,10 +3,10 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 -std	tests/Makefile	/^	gcc -fgnu89-inline --std=c99 ..\/util.c testLinearization.c ..\/ZIterator.c -o testLinearization$/;"	m
-BOTTOM	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon3
-BOTTOM_LEFT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon3
+BOTTOM	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+BOTTOM_LEFT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
 Block	block.h	/^} Block;$/;"	t	typeref:struct:__anon2
 BlockIterator	blockiterator.h	/^} BlockIterator;$/;"	t	typeref:struct:BlockIterator_h
 BlockIterator_h	blockiterator.h	/^typedef struct BlockIterator_h {$/;"	s
@@ -16,17 +16,17 @@ BlockIterator_h::pos	blockiterator.h	/^	int pos;$/;"	m	struct:BlockIterator_h	ac
 BlockIterator_h::width	blockiterator.h	/^	int width;$/;"	m	struct:BlockIterator_h	access:public
 CC	Makefile	/^CC=gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-Wall -pedantic -std=c99 -fgnu89-inline -O3 $/;"	m
-COEFFS	dct-idct.c	157;"	d	file:
+COEFFS	dct-idct.c	176;"	d	file:
 DCT_IDCT_H	dct-idct.h	2;"	d
-Direction	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	t	typeref:enum:__anon3
+Direction	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	t	typeref:enum:__anon4
 IMAGE_H	image.h	2;"	d
-LEFT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon3
+LEFT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
 M_PI	dct-idct.c	15;"	d	file:
-NONE	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon3
-RIGHT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon3
+NONE	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+RIGHT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
 TARGETS	Makefile	/^TARGETS=compressor$/;"	m
-TOP	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon3
-TOP_RIGHT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon3
+TOP	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
+TOP_RIGHT	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	e	enum:__anon4
 ZIterator	ZIterator.h	/^} ZIterator;$/;"	t	typeref:struct:ZIterator_t
 ZIterator_t	ZIterator.h	/^typedef struct ZIterator_t {$/;"	s
 ZIterator_t::column	ZIterator.h	/^	int column;$/;"	m	struct:ZIterator_t	access:public
@@ -46,17 +46,17 @@ __anon1::outFilename	main.c	/^	char outFilename[256];$/;"	m	struct:__anon1	file:
 __anon2::data	block.h	/^	float* data;$/;"	m	struct:__anon2	access:public
 __anon2::normalize	block.h	/^	bool normalize; $/;"	m	struct:__anon2	access:public
 __anon2::quantum	block.h	/^	float* quantum;$/;"	m	struct:__anon2	access:public
-__anon4::data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon4	access:public
-__anon4::h	image.h	/^  int h;$/;"	m	struct:__anon4	access:public
-__anon4::size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon4	access:public
-__anon4::w	image.h	/^  int w;$/;"	m	struct:__anon4	access:public
-allocCompressedOutput	main.c	/^void allocCompressedOutput(image* img, image* output, char inFileName[256]) {$/;"	f	signature:(image* img, image* output, char inFileName[256])
+__anon3::data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon3	access:public
+__anon3::h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
+__anon3::size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon3	access:public
+__anon3::w	image.h	/^  int w;$/;"	m	struct:__anon3	access:public
 allocCompressedOutput	main.c	/^void allocCompressedOutput(image* img, image* output, char inFileName[256]);$/;"	p	file:	signature:(image* img, image* output, char inFileName[256])
-allocPgmOutput	main.c	/^void allocPgmOutput(image* img, image* output, char inFileName[256]) {$/;"	f	signature:(image* img, image* output, char inFileName[256])
+allocOutput	main.c	/^void allocOutput(image* img, image* output) {$/;"	f	signature:(image* img, image* output)
 allocPgmOutput	main.c	/^void allocPgmOutput(image* img, image* output, char inFileName[256]);$/;"	p	file:	signature:(image* img, image* output, char inFileName[256])
 applyDct	compressor.c	/^void applyDct(image* input, image* output, Block b, float* quantify) {$/;"	f	signature:(image* input, image* output, Block b, float* quantify)
 applyDct	compressor.h	/^void applyDct(image* input, image* output, Block b, float* quantify);$/;"	p	signature:(image* input, image* output, Block b, float* quantify)
 applyQuantum	block.c	/^void applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
+blockIterator_delete	blockiterator.c	/^void blockIterator_delete(BlockIterator* it) {$/;"	f	signature:(BlockIterator* it)
 blockIterator_hasNext	blockiterator.c	/^pixel_t blockIterator_hasNext(BlockIterator it) {$/;"	f	signature:(BlockIterator it)
 blockIterator_hasNext	blockiterator.h	/^pixel_t blockIterator_hasNext(BlockIterator);$/;"	p	signature:(BlockIterator)
 blockIterator_new	blockiterator.c	/^BlockIterator blockIterator_new(pixel_t* pdata, const int width, const int height) {$/;"	f	signature:(pixel_t* pdata, const int width, const int height)
@@ -65,6 +65,7 @@ blockIterator_next	blockiterator.c	/^pixel_t blockIterator_next(BlockIterator* i
 blockIterator_next	blockiterator.h	/^pixel_t blockIterator_next(BlockIterator*);$/;"	p	signature:(BlockIterator*)
 block_applyQuantum	block.c	/^void block_applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
 block_applyQuantum	block.h	/^void block_applyQuantum(Block* b, int i);$/;"	p	signature:(Block* b, int i)
+block_delete	block.c	/^void block_delete(Block* block) {$/;"	f	signature:(Block* block)
 block_new	block.c	/^Block block_new() {$/;"	f
 block_new	block.h	/^Block block_new();$/;"	p	signature:()
 block_normalize	block.h	/^void block_normalize(Block* b, float v);$/;"	p	signature:(Block* b, float v)
@@ -73,32 +74,32 @@ block_setNormalize	block.h	/^void block_setNormalize(Block* b, float v);$/;"	p	s
 block_setQuantification	block.c	/^void block_setQuantification(Block* b, const float* quantum) {$/;"	f	signature:(Block* b, const float* quantum)
 block_setQuantification	block.h	/^void block_setQuantification(Block* b, const float* quantum);$/;"	p	signature:(Block* b, const float* quantum)
 column	ZIterator.h	/^	int column;$/;"	m	struct:ZIterator_t	access:public
+compress	compressor.c	/^void compress(image* input, image* output, const float* quantify) {$/;"	f	signature:(image* input, image* output, const float* quantify)
 compress	main.c	/^	int compress;$/;"	m	struct:__anon1	file:	access:public
 data	ZIterator.h	/^	float* data;$/;"	m	struct:ZIterator_t	access:public
 data	block.h	/^	float* data;$/;"	m	struct:__anon2	access:public
 data	blockiterator.h	/^	pixel_t* data;$/;"	m	struct:BlockIterator_h	access:public
-data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon4	access:public
+data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon3	access:public
 dct	dct-idct.c	/^void dct(image *tga, float data[8*8],$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
 dct	dct-idct.h	/^void dct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
 getNormalizeMatrix	main.c	/^float* getNormalizeMatrix() {$/;"	f
 getNormalizeMatrix	main.c	/^float* getNormalizeMatrix();$/;"	p	file:
 getQuantumMatrix	main.c	/^const float* getQuantumMatrix() {$/;"	f
 getQuantumMatrix	main.c	/^const float* getQuantumMatrix();$/;"	p	file:
-h	image.h	/^  int h;$/;"	m	struct:__anon4	access:public
+h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
 height	blockiterator.h	/^	int height;$/;"	m	struct:BlockIterator_h	access:public
-idct	dct-idct.c	/^void idct(image *tga, float data[8*8], const int xpos, const int ypos)$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
+idct	dct-idct.c	/^void idct(image *tga, float data[8*8], const int xpos, const int ypos) {$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
 idct	dct-idct.h	/^void idct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
-image	image.h	/^} image;$/;"	t	typeref:struct:__anon4
+image	image.h	/^} image;$/;"	t	typeref:struct:__anon3
 inFilename	main.c	/^	char inFilename[256];$/;"	m	struct:__anon1	file:	access:public
-invVectorize	decompressor.c	/^void invVectorize(image* in, image* out) {$/;"	f	signature:(image* in, image* out)
-invVectorize	decompressor.h	/^void invVectorize(image* in, image* out);$/;"	p	signature:(image* in, image* out)
+initCos	dct-idct.c	/^double* initCos() {$/;"	f
+invUtilsValues	decompressor.c	/^void invUtilsValues(image* in, image* out) {$/;"	f	signature:(image* in, image* out)
+invUtilsValues	decompressor.h	/^void invUtilsValues(image* in, image* out);$/;"	p	signature:(image* in, image* out)
 lastDirection	ZIterator.h	/^	Direction lastDirection;$/;"	m	struct:ZIterator_t	access:public
 line	ZIterator.h	/^	int line;$/;"	m	struct:ZIterator_t	access:public
 main	main.c	/^int main(int argc, char** argv) {$/;"	f	signature:(int argc, char** argv)
 main	tests/testLinearization.c	/^int main(int argc, char *argv[])$/;"	f	signature:(int argc, char *argv[])
 normalize	block.h	/^	bool normalize; $/;"	m	struct:__anon2	access:public
-obtainsSignificativesValues	decompressor.c	/^void obtainsSignificativesValues(image* in, image* out) {$/;"	f	signature:(image* in, image* out)
-obtainsSignificativesValues	decompressor.h	/^void obtainsSignificativesValues(image* in, image* out);$/;"	p	signature:(image* in, image* out)
 outFilename	main.c	/^	char outFilename[256];$/;"	m	struct:__anon1	file:	access:public
 parseArgs	main.c	/^void parseArgs(char *argv[], s_args* args) {$/;"	f	signature:(char *argv[], s_args* args)
 parseArgs	main.c	/^void parseArgs(char *argv[], s_args* args);$/;"	p	file:	signature:(char *argv[], s_args* args)
@@ -124,31 +125,31 @@ s_args	main.c	/^} s_args;$/;"	t	typeref:struct:__anon1	file:
 setBlock	image.c	/^void setBlock(image* img, Block block, const int i, const int j) {$/;"	f	signature:(image* img, Block block, const int i, const int j)
 setBlock	image.h	/^void setBlock(image* img, Block block, const int i, const int j);$/;"	p	signature:(image* img, Block block, const int i, const int j)
 size	ZIterator.h	/^	int size;$/;"	m	struct:ZIterator_t	access:public
-size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon4	access:public
+size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon3	access:public
 skipComments	image.c	/^void skipComments(FILE *fp)$/;"	f	signature:(FILE *fp)
 sources	Makefile	/^sources=$(wildcard *.c)$/;"	m
 test	test_script.sh	/^function test {$/;"	f
 test_compression	test_script.sh	/^function test_compression {$/;"	f
 test_dct	test_script.sh	/^function test_dct {$/;"	f
 test_decompression	test_script.sh	/^function test_decompression {$/;"	f
-test_inverse_dct	test_script.sh	/^function test_inverse_dct {$/;"	f
-test_inverse_quantify	test_script.sh	/^function test_inverse_quantify {$/;"	f
-test_inverse_utils_values	test_script.sh	/^function test_inverse_utils_values {$/;"	f
-test_inverse_vectorize	test_script.sh	/^function test_inverse_vectorize {$/;"	f
 test_quantify	test_script.sh	/^function test_quantify {$/;"	f
 test_vectorize	test_script.sh	/^function test_vectorize {$/;"	f
+uncompress	decompressor.c	/^void uncompress(image* in, image* out, float* quantify) {$/;"	f	signature:(image* in, image* out, float* quantify)
+uncompress	decompressor.h	/^void uncompress(image* in, image* out, float* quantify);$/;"	p	signature:(image* in, image* out, float* quantify)
 usage	main.c	/^void usage(char * progname) {$/;"	f	signature:(char * progname)
 usage	main.c	/^void usage(char * progname);$/;"	p	file:	signature:(char * progname)
 utilsValues	compressor.c	/^void utilsValues(image* img) {$/;"	f	signature:(image* img)
 utilsValues	compressor.h	/^void utilsValues(image*);$/;"	p	signature:(image*)
 vectorize	compressor.c	/^void vectorize(image* input, image* output, const float* quantify) {$/;"	f	signature:(image* input, image* output, const float* quantify)
 vectorize	compressor.h	/^void vectorize(image* input, image* output, const float* quantify);$/;"	p	signature:(image* input, image* output, const float* quantify)
-w	image.h	/^  int w;$/;"	m	struct:__anon4	access:public
+w	image.h	/^  int w;$/;"	m	struct:__anon3	access:public
 width	blockiterator.h	/^	int width;$/;"	m	struct:BlockIterator_h	access:public
 writeCompressed	image.c	/^void writeCompressed(const char *filename, const image *img){$/;"	f	signature:(const char *filename, const image *img)
 writeCompressed	image.h	/^void writeCompressed(const char *filename, const image *img);$/;"	p	signature:(const char *filename, const image *img)
 writePgm	image.c	/^void writePgm(const char *filename, const image *img)$/;"	f	signature:(const char *filename, const image *img)
 writePgm	image.h	/^void writePgm(const char *filename, const image *img);$/;"	p	signature:(const char *filename, const image *img)
+zIterator_delete	ZIterator.c	/^void zIterator_delete(ZIterator* it) {$/;"	f	signature:(ZIterator* it)
+zIterator_delete	ZIterator.h	/^void zIterator_delete(ZIterator* it);$/;"	p	signature:(ZIterator* it)
 zIterator_hasNext	ZIterator.c	/^bool zIterator_hasNext(ZIterator it) {$/;"	f	signature:(ZIterator it)
 zIterator_hasNext	ZIterator.h	/^bool zIterator_hasNext(ZIterator it);$/;"	p	signature:(ZIterator it)
 zIterator_hasPrevious	ZIterator.c	/^bool zIterator_hasPrevious(ZIterator it) {$/;"	f	signature:(ZIterator it)

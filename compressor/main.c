@@ -12,6 +12,7 @@
 #include "block.h"
 #include "util.h"
 #include "compressor.h"
+#include "decompressor.h"
 
 typedef struct{
 	int compress;
@@ -21,10 +22,7 @@ typedef struct{
 
 void usage(char * progname);
 void parseArgs(char *argv[], s_args* args);
-const float* getQuantumMatrix();
-float* getNormalizeMatrix();
-void allocPgmOutput(image* img, image* output, char inFileName[256]);
-void allocCompressedOutput(image* img, image* output, char inFileName[256]);
+void allocOutput(image* img, image* output);
 
 int main(int argc, char** argv) {
 	s_args args;
@@ -53,10 +51,8 @@ int main(int argc, char** argv) {
 			break;
 		case 1 : // compression
 			readPgm(args.inFilename, &img);
-			allocOutput(&img,&output);
-			vectorize(&img, &output, getQuantumMatrix());
-				
-			utilsValues(&output);
+			allocOutput(&img, &output);
+			compress(&img, &output, getQuantumMatrix());
 			writeCompressed(args.outFilename,&output);
 			break;
 		case 2 : // test dct
@@ -80,7 +76,9 @@ int main(int argc, char** argv) {
 			writePgm(args.outFilename,&output);
 			break;
 		case 5 : // compute and print error
-
+			readPgm(args.inFilename, &img);
+			allocOutput(&img,&output);
+			printf("Erreur compression of %s : %.1f\n", args.inFilename, getCompressionError(&img));
 			break;
 		case 6: // Inverse utils values
 			readCompressed(args.inFilename, &img);
@@ -94,7 +92,7 @@ int main(int argc, char** argv) {
 
 	free(img.data);
 	free(output.data);
-	free(initCos());
+	free(getCos());
 
 	return EXIT_SUCCESS;
 }
@@ -118,26 +116,3 @@ void parseArgs(char *argv[], s_args* args) {
 	strncpy(args->outFilename, argv[3], 256);
 }
 
-const float* getQuantumMatrix() {
-	static const float matrix[64] = {16, 11, 10, 16, 24,  40,  51,  61,
-		12,  12, 14, 19, 26,  58,  60,  55,
-		14,  13, 16, 24, 40,  57,  69,  56,
-		14,  17, 22, 29, 51,  87,  80,  62,
-		18,  22, 37, 56, 68,  109, 103, 77,
-		24,  35, 55, 64, 81,  104, 113, 92,
-		49,  64, 78, 87, 103, 121, 120, 101,
-		72,  92, 95, 98, 112, 100, 103, 99
-	};
-
-
-	return matrix;
-}
-
-float* getNormalizeMatrix() {
-	static float matrix[64];
-	for(int i=0 ; i < 64 ; ++i) {
-		matrix[i] = 8.f;
-	}
-
-	return matrix;
-}

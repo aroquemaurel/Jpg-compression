@@ -152,7 +152,7 @@ void dct(image *tga, float data[8*8],
 	}
 }
 
-double* initCos() {
+float* getCos() {
 	static float* allCos = 0;
 	static double piDivide16 = M_PI/16.0; 
 
@@ -184,9 +184,12 @@ void idct(image *tga, float data[8*8], const int xpos, const int ypos) {
 	float S, q;
 	float Cu, Cv;
 	float z;
-	float* allCos = initCos();
+	float* allCos = getCos();
 
-	static double invSqrt2 = 1.0 / sqrt(2.0);
+	static double invSqrt2 = -1;
+	if(invSqrt2 == -1) {
+		invSqrt2 = 1 / sqrt(2.0);
+	}
 		
 	for(y = 0; y < 8; ++y) {
 		for(x = 0; x < 8; ++x) {

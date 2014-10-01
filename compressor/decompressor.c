@@ -25,9 +25,8 @@ void invUtilsValues(image* in, image* out) {
 	}
 }
 
-void uncompress(image* in, image* out, float* quantify) {
+void uncompress(image* in, image* out, const float* quantify) {
 	Block block = block_new();
-	float v;
 	int colBlock = 0;
 	int lineBlock = 0;
 	int kIn = 0;

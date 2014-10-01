@@ -13,6 +13,7 @@ BlockIterator blockIterator_new(pixel_t* pdata, const int width, const int heigh
 
 pixel_t blockIterator_next(BlockIterator*);
 pixel_t blockIterator_hasNext(BlockIterator);
+void blockIterator_delete(BlockIterator* it); 
 
 
 #endif

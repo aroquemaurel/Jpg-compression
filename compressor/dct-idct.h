@@ -9,4 +9,6 @@ void dct(image *img, float *data, const int xpos, const int ypos);
 // the bloc of pixels is stored at xpos, ypos in img
 // result value si clamped between -127 to 128
 void idct(image *img, float *data, const int xpos, const int ypos);
+
+float* getCos();
 #endif
