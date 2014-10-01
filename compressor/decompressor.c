@@ -26,7 +26,6 @@ void obtainsSignificativesValues(image* in, image* out) {
 }
 
 void invVectorize(image* in, image* out, float* quantify) {
-	//	float* buff = calloc(sizeof(float), 8*8);
 	char* buff = malloc(sizeof(char) * in->w * in->h);
 	Block block = block_new();
 	float v;
@@ -41,47 +40,16 @@ void invVectorize(image* in, image* out, float* quantify) {
 			zIterator_next(&zit);
 		}
 		int kOut = 0;
-		for(int n = lineBlock; n < lineBlock+8 ; ++n) {
-			for(int m = colBlock; m < colBlock+8 ; ++m) {
-				buff[n*in->w+m] = block.data[kOut] * quantify[kOut];
-				++kOut;
+		for(int n = 0; n < 8 ; ++n) {
+			for(int m = 0; m < 8 ; ++m) {
+				block.data[n*8+m] *= quantify[n*8+m];
 			}
 		}
+		idct(out, block.data, colBlock, lineBlock);
 		colBlock += 8;
 		if(colBlock >= in->w) {
 			colBlock = 0;
 			lineBlock += 8;
 		}
 	}
-	for(int i = 0 ; i < in->h * in->w ; ++i) {
-		out->data[i] = round(buff[i]);
-	}
-		out->size = in->size;
-
-	block = block_new();
-	for(int i = 0 ; i < in->w ; i+= 8) {
-		for(int j = 0 ; j < in->h ; j += 8) {
-			idct(out,block.data,i,j);
-			printMatrixAsAFloatVector(block.data, 8, 8);
-			printf("\n");
-//			for(int k = 0 ; k < 64 ; ++k) {
-//				out->data[(j+k/8) * out->w + (i+k%8)] = block.data[k];
-//			}
-		}
-	}
-	
-//	for(int i = 0 ; i < in->h * in->w ; i += 64) { // Iterator on image : block by block
-//			int kOut= 0;
-//		for(int n = lineBlock; n < lineBlock+8 ; ++n) {
-//			for(int m = colBlock; m < colBlock+8 ; ++m) {
-//			//	out->data[n*in->w+m] = block.data[kOut]; 
-//				++kOut;
-//			}
-//		}
-//		colBlock += 8;
-//		if(colBlock >= in->w) {
-//			colBlock = 0;
-//			lineBlock += 8;
-//		}
-//	}
 }

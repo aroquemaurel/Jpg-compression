@@ -129,7 +129,7 @@ function test_decompression {
 	
 	for i in $(cat $TEST/file_list.txt)
 	do
-	    diff $TEST/ref_test_decompression/$i $TEST/test_decompression/$i >/dev/null
+	    diff $TEST/ref_test_decompression/$i $TEST/test_decompression/$i 
 	    RET=$?
             if [ $RET -ne 0 ]
 	    then

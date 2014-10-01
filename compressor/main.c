@@ -43,7 +43,11 @@ int main(int argc, char** argv) {
 		case 0 : // decompression
 			allocCompressedOutput(&img,&output,args.inFilename);
 			obtainsSignificativesValues(&img,&output);
-			invVectorize(&output, &output, getQuantumMatrix());
+			img.data = malloc(sizeof(char) * output.h*output.w);
+			for(int i = 0 ; i < output.h * output.w ; ++i ) {
+				img.data[i] = output.data[i];
+			}
+			invVectorize(&img, &output, getQuantumMatrix());
 			writePgm(args.outFilename, &output);
 			break;
 		case 1 : // compression
