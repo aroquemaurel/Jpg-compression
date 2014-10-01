@@ -154,18 +154,17 @@ void dct(image *tga, float data[8*8],
 
 double* initCos() {
 	static float* allCos = 0;
-	double piDivide16; 
+	static double piDivide16 = M_PI/16.0; 
 	int i = 0;
 
 	if(allCos == 0) {
-		allCos = malloc(sizeof(double) * 8 * 8 * 8 * 8);
-		piDivide16 = M_PI/16.0; 
+		allCos = malloc(sizeof(double) * (2*8+1)*8);
 		for(int y = 0; y < 8; ++y) {
 			for(int x = 0; x < 8; ++x) {
 				for(int v = 0; v < 8; ++v) {
 					for(int u = 0; u < 8; ++u) {
-						allCos[(2*x+1)*u] = cos((float)(2*x+1) * (float) u * M_PI/16.0); 
-						allCos[(2*y+1)*v] = cos((float)(2*y+1) * (float) v * M_PI/16.0); 
+						allCos[(2*x+1)*u] = cos((float)(2*x+1) * (float) u * piDivide16); 
+						allCos[(2*y+1)*v] = cos((float)(2*y+1) * (float) v * piDivide16); 
 					}
 				}
 			}
@@ -176,18 +175,19 @@ double* initCos() {
 }
 
 #define COEFFS(Cu,Cv,u,v) { \
-	if (u == 0) Cu = 1.0 / sqrt(2.0); else Cu = 1.0; \
-	if (v == 0) Cv = 1.0 / sqrt(2.0); else Cv = 1.0; \
+	if (u == 0) Cu = invSqrt2; else Cu = 1.0; \
+	if (v == 0) Cv = invSqrt2; else Cv = 1.0; \
 	}
 
-void idct(image *tga, float data[8*8], const int xpos, const int ypos)
-{
+void idct(image *tga, float data[8*8], const int xpos, const int ypos) {
 	int u,v,x,y;
 	int i = 0;
 	float S, q;
 	float Cu, Cv;
 	float z;
 	float* allCos = initCos();
+
+	static double invSqrt2 = 1.0 / sqrt(2.0);
 		
 	for(y = 0; y < 8; ++y) {
 		for(x = 0; x < 8; ++x) {
@@ -199,10 +199,7 @@ void idct(image *tga, float data[8*8], const int xpos, const int ypos)
 					COEFFS(Cu,Cv,u,v);
 					S = data[v*8+u];
 				
-					q = Cu * Cv * S *
-						(float)allCos[(2*x+1)*u] * (float)allCos[(2*y+1)*v];
-//						cos((float)(2*x+1) * (float)u * (double)piDivide16) *
-//						cos((float)(2*y+1) * (float)v * (double)piDivide16);
+					q = Cu * Cv * S * (float)allCos[(2*x+1)*u] * (float)allCos[(2*y+1)*v];
 					z += q;
 				}
 			}
