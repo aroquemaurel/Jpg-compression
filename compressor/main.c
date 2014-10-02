@@ -58,15 +58,13 @@ int main(int argc, char** argv) {
 		case 2 : // test dct
 			readPgm(args.inFilename, &img);
 			allocOutput(&img,&output);
-			block.normalize = true;
-			applyDct(&img, &output, block, getNormalizeMatrix());
+			applyDct(&img, &output, true, getNormalizeMatrix());
 			writePgm(args.outFilename, &output);
 			break;
 		case 3 : // test quantify
 			readPgm(args.inFilename, &img);
 			allocOutput(&img,&output);
-			block.normalize = false;
-			applyDct(&img, &output, block, getQuantumMatrix());
+			applyDct(&img, &output, false, getQuantumMatrix());
 			writePgm(args.outFilename, &output);
 			break;
 		case 4 : // test vectorize

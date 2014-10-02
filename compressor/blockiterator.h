@@ -1,5 +1,6 @@
 #ifndef __BLOCK_ITERATOR
 #define __BLOCK_ITERATOR
+#include <stdlib.h>
 #include "image.h"
 
 typedef struct BlockIterator_h {

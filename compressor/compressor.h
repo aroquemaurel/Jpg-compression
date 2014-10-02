@@ -6,7 +6,7 @@
 float* getNormalizeMatrix();
 const float* getQuantumMatrix();
 
-void applyDct(image* input, image* output, Block b, const float* quantify);
+void applyDct(image* input, image* output, bool normalize, const float* quantify);
 void vectorize(image* input, image* output, const float* quantify);
 void utilsValues(image*);
 void compress(image* input, image* output, const float* quantify);

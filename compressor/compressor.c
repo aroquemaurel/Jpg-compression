@@ -67,11 +67,12 @@ void utilsValues(image* img) {
 	blockIterator_delete(&it);
 }
 
-void applyDct(image* input, image* output, Block b, const float* quantify) {
+void applyDct(image* input, image* output, bool normalize, const float* quantify) {
+	Block b = block_new();
 	for(int i = 0 ; i < input->w ; i +=8 ) {
 		for(int j = 0 ; j < input->h ; j += 8) {
 			dct(input,b.data,i,j);
-			if(b.normalize) {
+			if(normalize) {
 				block_setNormalize(&b,quantify[0]);
 			} else {
 				block_setQuantification(&b,quantify);
@@ -109,13 +110,12 @@ void vectorize(image* input, image* output, const float* quantify) {
 	output->h = input->h;
 	output->w = input->w;
 
+#pragma omp parralel for private(i,j)	
 	for(i = 0 ; i < input->w ; i +=8 ) {
 		for(j = 0 ; j < input->h ; j += 8) {
 			block = block_new();
 			dct(input, block.data, j, i);
-			for(int k = 0 ; k < 64 ; ++k) {
-				block.data[k] /= (quantify[k]);
-			}
+			block_applyQuantify(&block,quantify);
 			zit = zIterator_new(block, 8);
 
 			output->data[(output->size)++] = round(zIterator_value(zit)); 

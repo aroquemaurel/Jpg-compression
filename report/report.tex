@@ -53,8 +53,8 @@
 	\end{itemize}
 
 	\subsection{Fichiers de tests}
-	L'exécution des tests s'effectue de la même manière que l'archive fourni : 
-	\begin{lstlisting}[language=Bash]
+	L'exécution des tests s'effectue de la même manière que l'archive fournie : 
+	\begin{lstlisting}[language=Bash, caption=Execution des tests, label=lst:test]
 aroquemaurel@aokiji < master > : ~/projets/c/oim/jpg-compression/report
 [0] % time make tests 
 dct           [OK]
@@ -65,11 +65,80 @@ decompression [OK]
 make tests  0,38s user 0,07s system 85% cpu 0,532 total
 	\end{lstlisting}
 	\label{files}
-	\section{Organisation des modules}
+
+	Comme montré listing \ref{lst:test}, l'intégralité des tests passent, ceux-ci sont basés sur les images d'origine. Un image de taille plus importante à été
+	ajoutée afin de pouvoir mieux observer les différentes optimisation, plus d'informations sont fournies section \ref{opti}.
+
 	\section{Compression}
+	Afin d'effectuer la compression, plusieurs tests ont été effectués afin de garantir que chaque module était bien fonctionnel : 
+	\begin{itemize}
+		\item Dct
+		\item Quantify
+		\item Vectorize
+		\item Compression
+	\end{itemize}
+
+	Chaque test est incrémental : un test ne peut pas passer sans passer le précédent.
+
+	\subsection{Dct et Quantify}
+	Afin d'appliquer la dct et de quantifier la matrice, il faut utiliser la fonction \texttt{applyDct} qui en fonction du 3\ieme{} paramètre applique soit la
+	normalisation, c'est-à-dire une division par \texttt{8.f}, soit il divise par la matrice de quantification. Cette factorisation nous permet de réutiliser
+	cette méthode soit pour le test dct, soit pour le test quantify. 
+
+	\subsection{Vectorize}
+	%% TODO Z
+	La vectorisation consiste en l'utilisation d'un Itérateur permettant de parcourir un block en Z comme le montre l'image ci-contre.
+
+	Cet itérateur, \texttt{ZIterateur}, possède les méthodes \texttt{has\_next} et \texttt{next} permettant de parcourir l'intégralité du block. La méthode
+	\texttt{next} doit vérifier tous les cas possibles avant de renvoyer la bonne valeur et de déplacer le curseur dans le tableau. 
+
+	Une solution plus optimisée que la présente aurait pu être de générer la liste des positions nécessaires à un déplacement en Z avec un script externe tel que
+	Python ou Bash. Cependant cette solution était moins souple en terme d'évolution : l'execution 
+
+	Une autre solution peut cependant être envisager pour optimiser un peu plus l'algorithme : stocker les valeurs des cases devant être parcourues dans un
+	tableau.
+
 	\section{Décompression}
-	\section{Optimisations}
+	La décompression utilise globalement les modules déjà développés précédemment, cependant en raison de l'idct particulièrement lente, une étape d'optimisation
+	section \ref{opti} sera nécessaire.
+
+	\begin{figure}[H]
+		\centering
+		% TODO TODO TODO TODO TODO
+		\caption{Image mystère}
+	\end{figure}
+
+	\section{Optimisations}\label{opti}
+	Le traitement d'image, et particulièrement la décompression sont des opérations couteuses. Ainsi afin d'avoir un traitement qui soit correct en mémoire
+	ou en cpu, des optimisations étaient nécessaires. 
+
+	Deux axes d'optimisations ont été travaillés : 
+	\begin{itemize}
+		\item D'une part, limiter les calculs, notamment dans les boucles, et particulièrement pour la fonction idct. 
+		\item D'autres part, l'utilisation de plusieurs cœurs en parallélisant le système semblait être intéressant.
+	\end{itemize}
+	
+	Afin de pouvoir observer facilement le temps d'exécution gagné, une image à été ajouté aux scripts de tests. En effet, les images proposées ne dépassaient
+	pas $800\times800$ pixels, un traitement qui était déjà relativement rapide. J'ai donc téléchargé une image \texttt{nasa.pgm} possédant une taille de
+	$1800\times1800$, cela m'a permis d'effectuer un test de charge tout en pouvant plus facilement observer les différences d'optimisations.
+
+	\begin{remarque}
+	Cependant, ces optimisations ne doivent pas altérer la lisibilité du code afin de pouvoir maintenir notre compresseur sans aucun problème.
+	\end{remarque}
+
+	Section \ref{statsOpti}, figure \ref{fig:statsOpti} est disponible une figure montrant les gains de performance obtenus suite aux optimisations.
+	
 	\subsection{Inverse de la dct}
+	\subsubsection{Constantes calculées dans les boucles}
+	\begin{description}
+		\item[$\frac{\Pi}{16}$]
+		\item[$\frac{1}{\sqrt{2}}$]
+	\end{description}
+	\subsubsection{Cosinus}
+	\subsubsection{Déclarations dans les boucles}
 	\subsection{Parallélisme avec \texttt{openmp}}
+	\appendix
+	\listoffigures
+	\lstlistoflistings
 
 \end{document}

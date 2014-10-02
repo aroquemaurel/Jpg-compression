@@ -15,7 +15,7 @@ BlockIterator_h::height	blockiterator.h	/^	int height;$/;"	m	struct:BlockIterato
 BlockIterator_h::pos	blockiterator.h	/^	int pos;$/;"	m	struct:BlockIterator_h	access:public
 BlockIterator_h::width	blockiterator.h	/^	int width;$/;"	m	struct:BlockIterator_h	access:public
 CC	Makefile	/^CC=gcc$/;"	m
-CFLAGS	Makefile	/^CFLAGS=-Wall -pedantic -std=c99 -fgnu89-inline -O3 $/;"	m
+CFLAGS	Makefile	/^CFLAGS=-Wall -pedantic -std=c99 -fgnu89-inline -O3 -fopenmp$/;"	m
 COEFFS	dct-idct.c	176;"	d	file:
 DCT_IDCT_H	dct-idct.h	2;"	d
 Direction	ZIterator.h	/^typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;$/;"	t	typeref:enum:__anon4
@@ -50,22 +50,25 @@ __anon3::data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon3	access:public
 __anon3::h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
 __anon3::size	image.h	/^  int size; \/\/! compressed size$/;"	m	struct:__anon3	access:public
 __anon3::w	image.h	/^  int w;$/;"	m	struct:__anon3	access:public
-allocCompressedOutput	main.c	/^void allocCompressedOutput(image* img, image* output, char inFileName[256]);$/;"	p	file:	signature:(image* img, image* output, char inFileName[256])
 allocOutput	main.c	/^void allocOutput(image* img, image* output) {$/;"	f	signature:(image* img, image* output)
-allocPgmOutput	main.c	/^void allocPgmOutput(image* img, image* output, char inFileName[256]);$/;"	p	file:	signature:(image* img, image* output, char inFileName[256])
-applyDct	compressor.c	/^void applyDct(image* input, image* output, Block b, float* quantify) {$/;"	f	signature:(image* input, image* output, Block b, float* quantify)
-applyDct	compressor.h	/^void applyDct(image* input, image* output, Block b, float* quantify);$/;"	p	signature:(image* input, image* output, Block b, float* quantify)
+allocOutput	main.c	/^void allocOutput(image* img, image* output);$/;"	p	file:	signature:(image* img, image* output)
+applyDct	compressor.c	/^void applyDct(image* input, image* output, Block b, const float* quantify) {$/;"	f	signature:(image* input, image* output, Block b, const float* quantify)
+applyDct	compressor.h	/^void applyDct(image* input, image* output, Block b, const float* quantify);$/;"	p	signature:(image* input, image* output, Block b, const float* quantify)
 applyQuantum	block.c	/^void applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
 blockIterator_delete	blockiterator.c	/^void blockIterator_delete(BlockIterator* it) {$/;"	f	signature:(BlockIterator* it)
+blockIterator_delete	blockiterator.h	/^void blockIterator_delete(BlockIterator* it); $/;"	p	signature:(BlockIterator* it)
 blockIterator_hasNext	blockiterator.c	/^pixel_t blockIterator_hasNext(BlockIterator it) {$/;"	f	signature:(BlockIterator it)
 blockIterator_hasNext	blockiterator.h	/^pixel_t blockIterator_hasNext(BlockIterator);$/;"	p	signature:(BlockIterator)
 blockIterator_new	blockiterator.c	/^BlockIterator blockIterator_new(pixel_t* pdata, const int width, const int height) {$/;"	f	signature:(pixel_t* pdata, const int width, const int height)
 blockIterator_new	blockiterator.h	/^BlockIterator blockIterator_new(pixel_t* pdata, const int width, const int height);$/;"	p	signature:(pixel_t* pdata, const int width, const int height)
 blockIterator_next	blockiterator.c	/^pixel_t blockIterator_next(BlockIterator* it) {$/;"	f	signature:(BlockIterator* it)
 blockIterator_next	blockiterator.h	/^pixel_t blockIterator_next(BlockIterator*);$/;"	p	signature:(BlockIterator*)
+block_applyQuantify	block.c	/^void block_applyQuantify(Block* b, const float* quantum) {$/;"	f	signature:(Block* b, const float* quantum)
+block_applyQuantify	block.h	/^void block_applyQuantify(Block* b, const float* quantum);$/;"	p	signature:(Block* b, const float* quantum)
 block_applyQuantum	block.c	/^void block_applyQuantum(Block* b, int i) {$/;"	f	signature:(Block* b, int i)
 block_applyQuantum	block.h	/^void block_applyQuantum(Block* b, int i);$/;"	p	signature:(Block* b, int i)
 block_delete	block.c	/^void block_delete(Block* block) {$/;"	f	signature:(Block* block)
+block_delete	block.h	/^void block_delete(Block* block);$/;"	p	signature:(Block* block)
 block_new	block.c	/^Block block_new() {$/;"	f
 block_new	block.h	/^Block block_new();$/;"	p	signature:()
 block_normalize	block.h	/^void block_normalize(Block* b, float v);$/;"	p	signature:(Block* b, float v)
@@ -75,6 +78,7 @@ block_setQuantification	block.c	/^void block_setQuantification(Block* b, const f
 block_setQuantification	block.h	/^void block_setQuantification(Block* b, const float* quantum);$/;"	p	signature:(Block* b, const float* quantum)
 column	ZIterator.h	/^	int column;$/;"	m	struct:ZIterator_t	access:public
 compress	compressor.c	/^void compress(image* input, image* output, const float* quantify) {$/;"	f	signature:(image* input, image* output, const float* quantify)
+compress	compressor.h	/^void compress(image* input, image* output, const float* quantify);$/;"	p	signature:(image* input, image* output, const float* quantify)
 compress	main.c	/^	int compress;$/;"	m	struct:__anon1	file:	access:public
 data	ZIterator.h	/^	float* data;$/;"	m	struct:ZIterator_t	access:public
 data	block.h	/^	float* data;$/;"	m	struct:__anon2	access:public
@@ -82,17 +86,20 @@ data	blockiterator.h	/^	pixel_t* data;$/;"	m	struct:BlockIterator_h	access:publi
 data	image.h	/^  pixel_t *data;$/;"	m	struct:__anon3	access:public
 dct	dct-idct.c	/^void dct(image *tga, float data[8*8],$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
 dct	dct-idct.h	/^void dct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
-getNormalizeMatrix	main.c	/^float* getNormalizeMatrix() {$/;"	f
-getNormalizeMatrix	main.c	/^float* getNormalizeMatrix();$/;"	p	file:
-getQuantumMatrix	main.c	/^const float* getQuantumMatrix() {$/;"	f
-getQuantumMatrix	main.c	/^const float* getQuantumMatrix();$/;"	p	file:
+getCompressionError	compressor.c	/^double getCompressionError(image* img) {$/;"	f	signature:(image* img)
+getCompressionError	compressor.h	/^double getCompressionError(image* img);$/;"	p	signature:(image* img)
+getCos	dct-idct.c	/^float* getCos() {$/;"	f
+getCos	dct-idct.h	/^float* getCos();$/;"	p	signature:()
+getNormalizeMatrix	compressor.c	/^float* getNormalizeMatrix() {$/;"	f
+getNormalizeMatrix	compressor.h	/^float* getNormalizeMatrix();$/;"	p	signature:()
+getQuantumMatrix	compressor.c	/^const float* getQuantumMatrix() {$/;"	f
+getQuantumMatrix	compressor.h	/^const float* getQuantumMatrix();$/;"	p	signature:()
 h	image.h	/^  int h;$/;"	m	struct:__anon3	access:public
 height	blockiterator.h	/^	int height;$/;"	m	struct:BlockIterator_h	access:public
 idct	dct-idct.c	/^void idct(image *tga, float data[8*8], const int xpos, const int ypos) {$/;"	f	signature:(image *tga, float data[8*8], const int xpos, const int ypos)
 idct	dct-idct.h	/^void idct(image *img, float *data, const int xpos, const int ypos);$/;"	p	signature:(image *img, float *data, const int xpos, const int ypos)
 image	image.h	/^} image;$/;"	t	typeref:struct:__anon3
 inFilename	main.c	/^	char inFilename[256];$/;"	m	struct:__anon1	file:	access:public
-initCos	dct-idct.c	/^double* initCos() {$/;"	f
 invUtilsValues	decompressor.c	/^void invUtilsValues(image* in, image* out) {$/;"	f	signature:(image* in, image* out)
 invUtilsValues	decompressor.h	/^void invUtilsValues(image* in, image* out);$/;"	p	signature:(image* in, image* out)
 lastDirection	ZIterator.h	/^	Direction lastDirection;$/;"	m	struct:ZIterator_t	access:public
@@ -134,8 +141,8 @@ test_dct	test_script.sh	/^function test_dct {$/;"	f
 test_decompression	test_script.sh	/^function test_decompression {$/;"	f
 test_quantify	test_script.sh	/^function test_quantify {$/;"	f
 test_vectorize	test_script.sh	/^function test_vectorize {$/;"	f
-uncompress	decompressor.c	/^void uncompress(image* in, image* out, float* quantify) {$/;"	f	signature:(image* in, image* out, float* quantify)
-uncompress	decompressor.h	/^void uncompress(image* in, image* out, float* quantify);$/;"	p	signature:(image* in, image* out, float* quantify)
+uncompress	decompressor.c	/^void uncompress(image* in, image* out, const float* quantify) {$/;"	f	signature:(image* in, image* out, const float* quantify)
+uncompress	decompressor.h	/^void uncompress(image* in, image* out, const float* quantify);$/;"	p	signature:(image* in, image* out, const float* quantify)
 usage	main.c	/^void usage(char * progname) {$/;"	f	signature:(char * progname)
 usage	main.c	/^void usage(char * progname);$/;"	p	file:	signature:(char * progname)
 utilsValues	compressor.c	/^void utilsValues(image* img) {$/;"	f	signature:(image* img)
@@ -154,8 +161,8 @@ zIterator_hasNext	ZIterator.c	/^bool zIterator_hasNext(ZIterator it) {$/;"	f	sig
 zIterator_hasNext	ZIterator.h	/^bool zIterator_hasNext(ZIterator it);$/;"	p	signature:(ZIterator it)
 zIterator_hasPrevious	ZIterator.c	/^bool zIterator_hasPrevious(ZIterator it) {$/;"	f	signature:(ZIterator it)
 zIterator_hasPrevious	ZIterator.h	/^bool zIterator_hasPrevious(ZIterator it);$/;"	p	signature:(ZIterator it)
-zIterator_new	ZIterator.c	/^ZIterator zIterator_new(float* pdata, const int size) {$/;"	f	signature:(float* pdata, const int size)
-zIterator_new	ZIterator.h	/^ZIterator zIterator_new(float* pdata, const int size);$/;"	p	signature:(float* pdata, const int size)
+zIterator_new	ZIterator.c	/^ZIterator zIterator_new(Block block, const int size) {$/;"	f	signature:(Block block, const int size)
+zIterator_new	ZIterator.h	/^ZIterator zIterator_new(Block pdata, const int size);$/;"	p	signature:(Block pdata, const int size)
 zIterator_next	ZIterator.c	/^float zIterator_next(ZIterator* it) {$/;"	f	signature:(ZIterator* it)
 zIterator_next	ZIterator.h	/^float zIterator_next(ZIterator* it);$/;"	p	signature:(ZIterator* it)
 zIterator_value	ZIterator.c	/^float zIterator_value(ZIterator it) {$/;"	f	signature:(ZIterator it)

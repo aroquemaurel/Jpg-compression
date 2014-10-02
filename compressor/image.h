@@ -1,6 +1,5 @@
 #ifndef IMAGE_H
 #define IMAGE_H
-#include "block.h"
 
 // pixel are stored as char
 // pgm value are unsigned char
@@ -28,8 +27,6 @@ void readCompressed(const char *filename, image *img);
 // write ASCII img->w img->h img->size and binary img->data (compresssed size value)
 // !! DO NOT free img->data (in case of reuse by the caller)
 void writeCompressed(const char *filename, const image *img);
-
-void setBlock(image* img, Block block, const int i, const int j);
 
 #endif
 
