@@ -3,3 +3,4 @@ input1.pgm
 lena.pgm
 ordered.pgm
 test-scene.pgm
+nasa.pgm

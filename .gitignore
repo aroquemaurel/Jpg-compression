@@ -2,4 +2,6 @@
 **/*.swo
 **/*.d	
 **/*.o	
+compressor/*.d
+compressor/*.o
 compressor/compressor
