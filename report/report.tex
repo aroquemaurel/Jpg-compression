@@ -1,0 +1,75 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage{xcolor}
+\input{/home/aroquemaurel/cours/includesLaTeX/couleurs.tex}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage[top=1.7cm, bottom=1.7cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{verbatim}
+\usepackage{tikz} %Vectoriel
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{multido}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage[urlbordercolor={1 1 1}, linkbordercolor={1 1 1}, linkcolor=vert1, urlcolor=bleu, colorlinks=true]{hyperref}
+
+\newcommand{\titre}{Compression d'image en niveaux de gris}
+\newcommand{\numero}{1}
+\newcommand{\typeDoc}{DM}
+\newcommand{\module}{Outils Informatiques pour le Multimédia}
+\newcommand{\sigle}{OIM}
+\newcommand{\semestre}{7}
+
+\input{/home/aroquemaurel/cours/includesLaTeX/l3/tddm.tex}
+\input{/home/aroquemaurel/cours/includesLaTeX/listings.tex} %prise en charge du langage C 
+\input{/home/aroquemaurel/cours/includesLaTeX/l3/remarquesExempleAttention.tex}
+\input{/home/aroquemaurel/cours/includesLaTeX/polices.tex}
+\input{/home/aroquemaurel/cours/includesLaTeX/affichageChapitre.tex}
+\makeatother
+\begin{document}
+	\maketitle
+	\section{Compilation exécution et tests}
+	L'archive qui à été déposée sur Moodle est organisé comme suit : 
+	\begin{description}
+		\item[\texttt{Report\_deRoquemaurelAntoine\_G1.1.pdf}] Le rapport que vous êtes en train de consulter
+		\item[\texttt{Compressor/}] Programme de compression contenant les fichiers détaillés section \ref{files}. 
+	\end{description}
+	\subsection{Fichier sources}	
+	\begin{itemize}
+		\item \texttt{block.c} : Fonctions et structures de données concernant les blocks.
+		\item \texttt{compressor.c} : Fonctions de compression.
+		\item \texttt{decompressor.c} : Fonctions de décompression.
+		\item \texttt{main.c} : Fichier principal gérant les arguments
+		\item \texttt{ZIterator.c} : Itérateur effectuant un parcours en Z.
+		\item \texttt{blockiterator.c} : Itérateur permettant de parcourir une image block par block.
+		\item \texttt{dct-idct.c} : Fonctions appliquant la dct et son inverse
+		\item \texttt{image.c} : Fonctions et structure de données concernant les images
+		\item \texttt{util.c} : Fonctions utiles
+		\item \texttt{Makefile} : Fichier Makefile
+	\end{itemize}
+
+	\subsection{Fichiers de tests}
+	L'exécution des tests s'effectue de la même manière que l'archive fourni : 
+	\begin{lstlisting}[language=Bash]
+aroquemaurel@aokiji < master > : ~/projets/c/oim/jpg-compression/report
+[0] % time make tests 
+dct           [OK]
+quantify      [OK]
+vectorize     [OK]
+compression   [OK]
+decompression [OK]
+make tests  0,38s user 0,07s system 85% cpu 0,532 total
+	\end{lstlisting}
+	\label{files}
+	\section{Organisation des modules}
+	\section{Compression}
+	\section{Décompression}
+	\section{Optimisations}
+	\subsection{Inverse de la dct}
+	\subsection{Parallélisme avec \texttt{openmp}}
+
+\end{document}
