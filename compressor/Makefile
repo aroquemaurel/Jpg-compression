@@ -8,7 +8,7 @@ clean:
 	@rm -f *.o *~ $(TARGETS) *.d
 
 CC=gcc
-CFLAGS=-Wall -pedantic -std=c99 -fgnu89-inline -O3 -openmp
+CFLAGS=-Wall -pedantic -std=c99 -fgnu89-inline -O3 -fopenmp
 sources=$(wildcard *.c)
 
 # compile

@@ -180,11 +180,11 @@ float* getCos() {
 
 void idct(image *tga, float data[8*8], const int xpos, const int ypos) {
 	int u,v,x,y;
-	int i = 0;
 	float S, q;
 	float Cu, Cv;
 	float z;
 	float* allCos = getCos();
+	float cos2y;
 
 	static double invSqrt2 = -1;
 	if(invSqrt2 == -1) {
@@ -196,11 +196,12 @@ void idct(image *tga, float data[8*8], const int xpos, const int ypos) {
 			z = 0.0;
 
 			for(v = 0; v < 8; ++v) {
+				cos2y = allCos[(2*y+1)*v]; 
 				for(u = 0; u < 8; ++u) {
 					COEFFS(Cu,Cv,u,v);
 					S = data[v*8+u];
 				
-					q = Cu * Cv * S * (float)allCos[(2*x+1)*u] * (float)allCos[(2*y+1)*v];
+					q = Cu * Cv * S * (float)allCos[(2*x+1)*u] * cos2y;
 					z += q;
 				}
 			}

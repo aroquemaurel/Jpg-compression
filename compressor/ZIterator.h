@@ -2,6 +2,7 @@
 #define __LINEARISATION
 
 #include <stdbool.h>
+#include "block.h"
 typedef enum {TOP, BOTTOM, RIGHT, LEFT, TOP_RIGHT, BOTTOM_LEFT, NONE} Direction;
 typedef struct ZIterator_t {
 	float* data;
@@ -11,7 +12,7 @@ typedef struct ZIterator_t {
 	Direction lastDirection;
 } ZIterator;
 
-ZIterator zIterator_new(float* pdata, const int size);
+ZIterator zIterator_new(Block pdata, const int size);
 
 /* 
  * Return the next element  

@@ -5,33 +5,39 @@
 #include <stdio.h>
 #include <string.h>
 
+
 float zIterator_next(ZIterator* it) {
 	assert(zIterator_hasNext(*it));
-	if(it->line == 0 && it->column % 2 == 0) {
-		++it->column;
-		it->lastDirection = RIGHT;
-	} else if(it->line == 0 && it->column % 2 != 0) {
-		++it->line;
-		--it->column;
-		it->lastDirection = BOTTOM_LEFT;
+
+	if(it->line == 0) {
+		if(it->column % 2 == 0) {
+			++it->column;
+			it->lastDirection = RIGHT;
+		} else {
+			++it->line;
+			--it->column;
+			it->lastDirection = BOTTOM_LEFT;
+		}
 	} else if(it->column == 0 && it->line % 2 == 0) {
 		--it->line;
 		++it->column;
 		it->lastDirection = TOP_RIGHT;
-	} else if(it->line == it->size-1 && it->column % 2 == 0) {
+	} else if(it->line == it->size-1) {
+		if(it->column % 2 == 0) {
+			it->lastDirection = RIGHT;
+		} else {
+			--it->line;
+			it->lastDirection = TOP_RIGHT;
+		}
 		++it->column;
-		it->lastDirection = RIGHT;
-	} else if(it->line == it->size-1 && it->column %2 != 0) {
-		--it->line;
-		++it->column;
-		it->lastDirection = TOP_RIGHT;
-	} else if(it->column == it->size-1 && it->line%2 !=0) {
+	} else if(it->column == it->size-1) {
+		if(it->line%2 != 0) {
+			it->lastDirection = BOTTOM;
+		} else {
+			--it->column;
+			it->lastDirection = BOTTOM_LEFT;
+		}
 		++it->line;
-		it->lastDirection = BOTTOM;
-	} else if(it->column == it->size-1 && it->line%2 == 0) {
-		++it->line;
-		--it->column;
-		it->lastDirection = BOTTOM_LEFT;
 	} else if(it->column == 0 && it->line %2 != 0) {
 		++it->line;
 		it->lastDirection = BOTTOM;
@@ -42,7 +48,7 @@ float zIterator_next(ZIterator* it) {
 		++it->line;
 		--it->column;
 	} else {
-		printf("DEFAULT");
+		printf("DEFAULT\n");
 	}
 
 	return it->data[it->line*it->size+it->column];
@@ -60,12 +66,12 @@ float zIterator_value(ZIterator it) {
 	return it.data[it.line*it.size+it.column];
 }
 
-ZIterator zIterator_new(float* pdata, const int size) {
+ZIterator zIterator_new(Block block, const int size) {
 	ZIterator zIterator;
 	zIterator.data = (float*)malloc(sizeof(float)*size*size);
 
 	for(int i = 0 ; i < size*size; ++i) {
-		zIterator.data[i] = pdata[i];	
+		zIterator.data[i] = block.data[i];	
 	}
 
 	zIterator.line = 0;

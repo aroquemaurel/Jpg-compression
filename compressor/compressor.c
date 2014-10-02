@@ -28,18 +28,19 @@ float* getNormalizeMatrix() {
 }
 
 void utilsValues(image* img) {
-	char* buff = malloc(sizeof(char) * img->size);
+	char* buff = malloc(sizeof(pixel_t) * img->size);
 	int lastBlockCase = 0;
 	int firstBlockCase = 0;
 	int k = 0;
 	bool endZero = false;
+	int j;
 	BlockIterator it;
 
 	for(it = blockIterator_new(img->data, img->w, img->h) ; 
 			blockIterator_hasNext(it) ;
 			blockIterator_next(&it)) {
 		k = 0;
-		for(int j = 63 ; j >= 0 ; --j) {
+		for(j = 63 ; j >= 0 ; --j) {
 			if(img->data[it.pos-(63-j)] != 0) {
 				if(!endZero) {
 					buff[firstBlockCase] = j+1;
@@ -57,13 +58,13 @@ void utilsValues(image* img) {
 		firstBlockCase = lastBlockCase+1;
 		endZero = false;
 	}
-	blockIterator_delete(&it);
 
 	for(int i = 0 ; i < lastBlockCase+1; ++i) {
 		img->data[i] = buff[i];
 	}
 	img->size = lastBlockCase+1;
 	free(buff);
+	blockIterator_delete(&it);
 }
 
 void applyDct(image* input, image* output, Block b, const float* quantify) {
@@ -90,7 +91,7 @@ double getCompressionError(image* img) {
 	uncompress(&compressImg, &uncompressImg, getQuantumMatrix());
 
 	for (int i = 0; i < img->h*img->w; i++) {
-		error += 	pow(img->data[i] - uncompressImg.data[i], 2);	
+		error += pow(img->data[i] - uncompressImg.data[i], 2);	
 	}
 	error /= img->h*img->w;
 
@@ -102,16 +103,18 @@ double getCompressionError(image* img) {
 
 void vectorize(image* input, image* output, const float* quantify) {
 	ZIterator zit;
+	Block block; 
+	int i, j;
 	output->size = 0;
 	output->h = input->h;
 	output->w = input->w;
 
-	for(int i = 0 ; i < input->w ; i +=8 ) {
-		for(int j = 0 ; j < input->h ; j += 8) {
-			float block[8*8];			
-			dct(input, block, j, i);
+	for(i = 0 ; i < input->w ; i +=8 ) {
+		for(j = 0 ; j < input->h ; j += 8) {
+			block = block_new();
+			dct(input, block.data, j, i);
 			for(int k = 0 ; k < 64 ; ++k) {
-				block[k] /= (quantify[k]);
+				block.data[k] /= (quantify[k]);
 			}
 			zit = zIterator_new(block, 8);
 
@@ -121,6 +124,7 @@ void vectorize(image* input, image* output, const float* quantify) {
 			}
 
 			zIterator_delete(&zit);
+			block_delete(&block);
 		}
 	}
 }
