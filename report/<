@@ -233,16 +233,11 @@ en effet, cette instruction ne dépend que de y et v, il est inutile de la mettr
 	\caption{Statistiques sur le temps gagné grâce aux optimisations}
 	\label{fig:statsOpti}
 \end{figure}
-Nous pouvons donc observer qu'au vu de sa rapidité, la compression n'était pas optimisable : il parait extrêmement difficile de gagner ne serait-ce que 30ms,
-notamment grâce à la fonction \text{dct} qui effectue la majorité de ses calculs directement en binaire. 
-
-Cependant, grâce à notre optimisation, nous avons pu avoir une décompression $\frac{10.510}{0.502} = 21$ fois plus rapide ! 
-
 \hspace{-50px}
 \begin{tabular}{cc}
 \begin{minipage}{0.5\textwidth}
 	\begin{lstlisting}[language=Bash,linewidth=280px, caption=Sans optimisation]
- (ssh) aroquemaurel@aokiji <noOptimize>
+ (ssh) aroquemaurel@aokiji < noOptimize >
  [0] % time ./compressor 0 nasa.xxx nasa.pgm
 
 ./compressor 0 nasa.xxx nasa.pgm  10,47s user 0,02s system 99% cpu 10,510 total
@@ -251,14 +246,13 @@ Cependant, grâce à notre optimisation, nous avons pu avoir une décompression 
 &
 \begin{minipage}{0.5\textwidth}
 	\begin{lstlisting}[language=Bash,linewidth=280px, caption=Avec optimisations]
-(ssh) aroquemaurel@aokiji <master>
+(ssh) aroquemaurel@aokiji < master >
 [0] % time ./compressor 0 nasa.xxx nasa.pgm 
 
  ./compressor 0 nasa.xxx  nasa.pgm 0,48s user 0,01s system 99% cpu 0,502 total
  \end{lstlisting}
 \end{minipage}
 \end{tabular}
-
 	\appendix
 	\listoffigures
 	\lstlistoflistings
