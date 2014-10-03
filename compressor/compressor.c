@@ -110,12 +110,11 @@ void vectorize(image* input, image* output, const float* quantify) {
 	output->h = input->h;
 	output->w = input->w;
 
-#pragma omp parralel for private(i,j)	
-	for(i = 0 ; i < input->w ; i +=8 ) {
-		for(j = 0 ; j < input->h ; j += 8) {
+	for(i = 0 ; i < input->h ; i +=8 ) {
+		for(j = 0 ; j < input->w ; j += 8) {
 			block = block_new();
 			dct(input, block.data, j, i);
-			block_applyQuantify(&block,quantify);
+			block_applyQuantify(&block, quantify);
 			zit = zIterator_new(block, 8);
 
 			output->data[(output->size)++] = round(zIterator_value(zit)); 

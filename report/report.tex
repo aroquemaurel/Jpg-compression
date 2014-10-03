@@ -87,21 +87,29 @@ make tests  0,38s user 0,07s system 85% cpu 0,532 total
 	cette méthode soit pour le test dct, soit pour le test quantify. 
 
 	\subsection{Vectorize}
-	%% TODO Z
 	La vectorisation consiste en l'utilisation d'un Itérateur permettant de parcourir un block en Z comme le montre l'image ci-contre.
 
 	Cet itérateur, \texttt{ZIterateur}, possède les méthodes \texttt{has\_next} et \texttt{next} permettant de parcourir l'intégralité du block comme le montre
 	le listing \ref{lst:zit}. La méthode
 	\texttt{next} doit vérifier tous les cas possibles avant de renvoyer la bonne valeur et de déplacer le curseur dans le tableau. 
-	\begin{lstlisting}[language=C,numbers=none, caption=Utilisation de \texttt{ZIterator}, label=lst:zit]
-zit = zIterator_new(block, 8); // 8: block size
+	\begin{lstlisting}[language=C, caption=Vectoriser une image, label=lst:zit]
+	for(i = 0 ; i < input->h ; i +=8 ) {
+		for(j = 0 ; j < input->w ; j += 8) {
+			block = block_new();
+			dct(input, block.data, j, i);
+			block_applyQuantify(&block, quantify);
+			zit = zIterator_new(block, 8);
 
-output->data[(output->size)++] = round(zIterator_value(zit)); 
-while(zIterator_hasNext(zit)) {
-	output->data[(output->size)++] = round(zIterator_next(&zit));
-}
+			output->data[(output->size)++] = round(zIterator_value(zit)); 
+			while(zIterator_hasNext(zit)) {
+				output->data[(output->size)++] = round(zIterator_next(&zit));
+			}
+
+			zIterator_delete(&zit);
+			block_delete(&block);
+		}
+	}
 			\end{lstlisting}	
-
 	Une solution plus optimisée que la présente aurait pu être de générer la liste des positions nécessaires à un déplacement en Z avec un script externe tel que
 	Python ou Bash. Cependant cette solution était moins souple en terme d'évolution : l'execution 
 
@@ -214,6 +222,18 @@ en effet, cette instruction ne dépend que de y et v, il est inutile de la mettr
 	Cependant, il est tout de même plus propre de ne pas se reposer sur le compilateur et d'effectuer nous même les optimisations, en effet, se reposer sur le
 	compilateur peut être dangereux en fonction des versions du compilateur. Quant est-t-il de Mingw, Cygwin, Visual C++, \ldots ?
 	\subsection{Parallélisme avec \texttt{openmp}}
+	La parallélisation permet d'utiliser plusieurs cœurs simultanément, ce qui pourrait hypothétiquement accélérer le calcul sur les matrices. En effet certaines
+	boucles pourraient être faites par plusieurs threads.
+
+	Cependant, en pratique, cette optimisation est inutile pour notre problème. En effet, le temps qui pourrait être gagné par le traitement paralléliser est
+	perdu à cause de la communication entre threads et de leur gestion : sur un petit volume de données, cela est donc contre-productif.
+
+	Or, notre projet comporte des calculs qui s'effectuent principalement sur des blocs de $8 \times 8$ : ce sont donc des petites itérations, bien que
+	nombreuses. \\
+	L'utilisation de OpenMP serait donc plus intéressantes pour des boucles parcourant de gros volumes de données.
+
+	Les boucles les plus intéressantes à paralléliser sont celles qui peuvent s'effectuer en parallèle indépendamment de l'itération courante, ce sont donc les
+	boucles concernant la vectorisation du côtés de la compression et la << dévectorisation >> du côtés de la compression.
 	\subsection{Gain de temps grâce à l'optimisation}\label{statsOpti}
 	La figure \ref{fig:statsOpti} montre les différents gains de performances effectués tout au long de l'optimisation. 
 	\begin{description}
