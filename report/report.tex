@@ -9,6 +9,7 @@
 \usepackage[top=1.7cm, bottom=1.7cm, left=2.5cm, right=2.5cm]{geometry}
 \usepackage{verbatim}
 \usepackage{tikz} %Vectoriel
+\usepackage{pgfplots}
 \usepackage{listings}
 \usepackage{fancyhdr}
 \usepackage{multido}
@@ -137,6 +138,14 @@ make tests  0,38s user 0,07s system 85% cpu 0,532 total
 	\subsubsection{Cosinus}
 	\subsubsection{Déclarations dans les boucles}
 	\subsection{Parallélisme avec \texttt{openmp}}
+	\subsection{Gain de temps grâce à l'optimisation}\label{statsOpti}
+	\begin{tikzpicture}[scale=.7]
+		\begin{axis}[xtick={1,20,40},xlabel={Type d'optimisation}, ylabel={Tempx d'éxecution}, xticklabels={Aucune, idct, OpenMP}, legend entries={Compression, Decompression, Compression et decompression}, width=15cm]
+			\addplot+[smooth] coordinates{(1,21)(20,2)(40,12)};
+			\addplot coordinates{(1,1)(20,20)(40,8)};
+			\addplot coordinates{(1,4)(20,21)(40,5)};
+		\end{axis}
+	\end{tikzpicture}
 	\appendix
 	\listoffigures
 	\lstlistoflistings
