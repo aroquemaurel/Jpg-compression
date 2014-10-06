@@ -48,22 +48,22 @@ float zIterator_next(ZIterator* it) {
 		++it->line;
 		--it->column;
 	} else {
-		printf("DEFAULT\n");
+		printf("DEFAULT\n"); // We mustn't go here !
 	}
 
 	return it->data[it->line*it->size+it->column];
 }
 
 bool zIterator_hasNext(ZIterator it) {
-	return !(it.column == it.size-1 && it.line == it.size-1);
+	return !(it.column == it.size-1 && it.line == it.size-1); // Not the end of block
 }
 
 bool zIterator_hasPrevious(ZIterator it) {
-	return it.column != 0 && it.line != 0;
+	return it.column != 0 && it.line != 0; //Not the beginning of block
 }
 
 float zIterator_value(ZIterator it) {
-	return it.data[it.line*it.size+it.column];
+	return it.data[it.line*it.size+it.column]; // Value of current case
 }
 
 ZIterator zIterator_new(Block block, const int size) {

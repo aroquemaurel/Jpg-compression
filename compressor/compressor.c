@@ -36,14 +36,16 @@ void utilsValues(image* img) {
 	int j;
 	BlockIterator it;
 
+	// Iterate block by block
 	for(it = blockIterator_new(img->data, img->w, img->h) ; 
 			blockIterator_hasNext(it) ;
 			blockIterator_next(&it)) {
 		k = 0;
-		for(j = 63 ; j >= 0 ; --j) {
+//#pragma omp for private(j)
+		for(j = 63 ; j >= 0 ; --j) { // Iterate pixel by pixel
 			if(img->data[it.pos-(63-j)] != 0) {
 				if(!endZero) {
-					buff[firstBlockCase] = j+1;
+					buff[firstBlockCase] = j+1; // Number of utils values
 					lastBlockCase = firstBlockCase+j+1;
 					endZero = true;
 				}
@@ -59,6 +61,7 @@ void utilsValues(image* img) {
 		endZero = false;
 	}
 
+	// Copy buff in img
 	for(int i = 0 ; i < lastBlockCase+1; ++i) {
 		img->data[i] = buff[i];
 	}
@@ -69,8 +72,12 @@ void utilsValues(image* img) {
 
 void applyDct(image* input, image* output, bool normalize, const float* quantify) {
 	Block b = block_new();
-	for(int i = 0 ; i < input->w ; i +=8 ) {
-		for(int j = 0 ; j < input->h ; j += 8) {
+	int i, j;
+
+	// Iterate block by block
+//#pragma omp for private(i,j)
+	for(i = 0 ; i < input->w ; i +=8 ) {
+		for(j = 0 ; j < input->h ; j += 8) {
 			dct(input,b.data,i,j);
 			if(normalize) {
 				block_setNormalize(&b,quantify[0]);
@@ -83,6 +90,7 @@ void applyDct(image* input, image* output, bool normalize, const float* quantify
 }
 double getCompressionError(image* img) {
 	double error = 0;		
+	int i;
 	image compressImg;			
 	image uncompressImg;		
 
@@ -91,7 +99,9 @@ double getCompressionError(image* img) {
 	compress(img, &compressImg, getQuantumMatrix());
 	uncompress(&compressImg, &uncompressImg, getQuantumMatrix());
 
-	for (int i = 0; i < img->h*img->w; i++) {
+	// Iterate px by px
+#pragma omp for private(i)
+	for (i = 0; i < img->h*img->w; i++) {
 		error += pow(img->data[i] - uncompressImg.data[i], 2);	
 	}
 	error /= img->h*img->w;
@@ -110,13 +120,15 @@ void vectorize(image* input, image* output, const float* quantify) {
 	output->h = input->h;
 	output->w = input->w;
 
+	// Iterate block by block
 	for(i = 0 ; i < input->h ; i +=8 ) {
-		for(j = 0 ; j < input->w ; j += 8) {
+		for(j = 0 ; j < input->w ; j += 8) { 
 			block = block_new();
 			dct(input, block.data, j, i);
 			block_applyQuantify(&block, quantify);
 			zit = zIterator_new(block, 8);
 
+			// copy the block in output
 			output->data[(output->size)++] = round(zIterator_value(zit)); 
 			while(zIterator_hasNext(zit)) {
 				output->data[(output->size)++] = round(zIterator_next(&zit));

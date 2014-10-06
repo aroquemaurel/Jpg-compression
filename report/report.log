@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.3.1)  3 OCT 2014 14:31
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.3.1)  3 OCT 2014 19:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1608,11 +1608,15 @@ LaTeX Font Warning: Font shape `T1/lmtt/bc/n' undefined
 (Font)              using `T1/lmtt/m/n' instead on input line 224.
 
 [5]
-Overfull \hbox (83.10359pt too wide) in paragraph at lines 261--281
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theoerem header of amsthm
+(mdframed)              on input line 238.
+ [6]
+Overfull \hbox (83.10359pt too wide) in paragraph at lines 266--286
 []  [] 
  []
 
-[6] (./report.lof)
+(./report.lof)
 \tf@lof=\write6
 \openout6 = `report.lof'.
 
@@ -1620,24 +1624,24 @@ Overfull \hbox (83.10359pt too wide) in paragraph at lines 261--281
 \tf@lol=\write7
 \openout7 = `report.lol'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 286.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 291.
  [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 286.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 291.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 286.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 286.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 291.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 291.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 5466D8F266EB307353E8351E29A467CC;1058.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 286.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 291.
  ) 
 Here is how much of TeX's memory you used:
  31359 strings out of 494232
  624178 string characters out of 3160025
- 792408 words of memory out of 3000000
+ 792672 words of memory out of 3000000
  33871 multiletter control sequences out of 15000+200000
  81473 words of font info for 75 fonts, out of 3000000 for 9000
  462 hyphenation exceptions out of 8191
@@ -1660,7 +1664,7 @@ lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/te
 xmf/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf/fonts/type1/public/lm/lmt
 t9.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/avantgar/uagk8a.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on report.pdf (7 pages, 970263 bytes).
+Output written on report.pdf (7 pages, 972155 bytes).
 PDF statistics:
  287 PDF objects out of 1000 (max. 8388607)
  251 compressed objects within 3 object streams

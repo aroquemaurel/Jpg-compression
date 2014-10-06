@@ -144,7 +144,7 @@ make tests  0,38s user 0,07s system 85% cpu 0,532 total
 
 	Deux axes d'optimisations ont été travaillés : 
 	\begin{itemize}
-		\item D'une part, limiter les calculs, notamment dans les boucles, et particulièrement pour la fonction idct. 
+		\item D'une part, limiter les calculs, notamment dans les boucles, et particulièrement pour la fonction \texttt{idct}. 
 		\item D'autres part, l'utilisation de plusieurs cœurs en parallélisant le système semblait être intéressant.
 	\end{itemize}
 	
@@ -223,10 +223,10 @@ en effet, cette instruction ne dépend que de y et v, il est inutile de la mettr
 	compilateur peut être dangereux en fonction des versions du compilateur. Quant est-t-il de Mingw, Cygwin, Visual C++, \ldots ?
 	\subsection{Parallélisme avec \texttt{openmp}}
 	La parallélisation permet d'utiliser plusieurs cœurs simultanément, ce qui pourrait hypothétiquement accélérer le calcul sur les matrices. En effet certaines
-	boucles pourraient être faites par plusieurs threads.
+	boucles pourraient être faites par plusieurs \textit{threads}.
 
 	Cependant, en pratique, cette optimisation est inutile pour notre problème. En effet, le temps qui pourrait être gagné par le traitement paralléliser est
-	perdu à cause de la communication entre threads et de leur gestion : sur un petit volume de données, cela est donc contre-productif.
+	perdu à cause de la communication entre \textit{threads} et de leur gestion : sur un petit volume de données, cela est donc contre-productif.
 
 	Or, notre projet comporte des calculs qui s'effectuent principalement sur des blocs de $8 \times 8$ : ce sont donc des petites itérations, bien que
 	nombreuses. \\
@@ -234,6 +234,11 @@ en effet, cette instruction ne dépend que de y et v, il est inutile de la mettr
 
 	Les boucles les plus intéressantes à paralléliser sont celles qui peuvent s'effectuer en parallèle indépendamment de l'itération courante, ce sont donc les
 	boucles concernant la vectorisation du côtés de la compression et la << dévectorisation >> du côtés de la compression.
+
+	\begin{remarque}
+		Dans le code fourni, les instructions OpenMP ont été mises en commentaires afin d'éviter d'éventuels problèmes dues à l'architectures de la machine, et
+		étant donné le gain nul, celles-ci étaient inutiles. Vous pouvez cependant observer les endroits stratégies où elles ont été placées.
+	\end{remarque}<++>
 	\subsection{Gain de temps grâce à l'optimisation}\label{statsOpti}
 	La figure \ref{fig:statsOpti} montre les différents gains de performances effectués tout au long de l'optimisation. 
 	\begin{description}

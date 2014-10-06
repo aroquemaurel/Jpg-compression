@@ -7,12 +7,12 @@
 void invUtilsValues(image* in, image* out) {
 	int nbValues = 0; 
 	int j = 0;
-	out->data = calloc(sizeof(char) * out->w * out->h, sizeof(char));
+	out->data = calloc(sizeof(char) * out->w * out->h, sizeof(char)); // Init data with 0
 
 	for(int i = 0 ; i < in->size ; ++i) {
-		if(nbValues == 0) {
+		if(nbValues == 0) { // 0 values
 			nbValues = in->data[i];
-			if(nbValues == 0) {
+			if(nbValues == 0) { // No significative value
 				j += 64;
 			}
 			while(j % 64 != 0) {
@@ -20,7 +20,7 @@ void invUtilsValues(image* in, image* out) {
 			}
 		} else {
 			--nbValues;
-			out->data[j++] = in->data[i];
+			out->data[j++] = in->data[i]; // SIgnificative value
 		}
 	}
 }
@@ -35,16 +35,20 @@ void uncompress(image* in, image* out, const float* quantify) {
 	out->h = in->h;
 	out->w = in->w;
 
-	for(int i = 0 ; i < in->h * in->w ; i += 64) { // Iterator on image : block by block
+	// Iterator on image : block by block
+	for(int i = 0 ; i < in->h * in->w ; i += 64) { 
 		kIn = 0;
 		ZIterator zit = zIterator_new(block, 8);
-		block.data[0] = in->data[i]; 
+
+		// Z Parcours for reposition of blocks
+		block.data[0] = in->data[i];  // First iterator value
 		while(zIterator_hasNext(zit)) {
-			block.data[zit.line*8 + zit.column] = in->data[i + (kIn++)];
+			block.data[zit.line*8 + zit.column] = in->data[i + (kIn++)]; 
 			zIterator_next(&zit);
 		}
 		block.data[zit.line*8 + zit.column] = in->data[i + (kIn++)]; // last pixel
 
+		// Quantify
 		for(n = 0; n < 8 ; ++n) {
 			for(m = 0; m < 8 ; ++m) {
 				block.data[n*8 + m] *= quantify[n*8 + m];
